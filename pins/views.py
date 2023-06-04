@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from Volume.models import Pin
+from pins.forms import CreatePinForm
+from django.utils.text import slugify
 
 
 # Create your views here.
