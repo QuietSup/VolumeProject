@@ -43,3 +43,23 @@ def remove_like(request, pinId):
     pin.decrease_likes()
     request.user.liked_pins.remove(pin)
     return HttpResponse(status=200)
+
+def create_pin(request):
+    if request.method == 'POST':
+        form = CreatePinForm(request.POST, request.FILES)
+        if form.is_valid():
+            pin = form.save(commit=False)
+            pin.creator = request.user
+            pin.save()
+            redirect('pins:show_pin', slugify(pin.title), pin.id)
+    else:
+        form = CreatePinForm()
+    return render(request, 'pins/new-item.html', {'form': form})
+
+def show_pin(request, slug, pin_id):
+    pin = get_object_or_404(Pin, pk=pin_id)
+
+    if slugify(pin.title) != slug:
+        return redirect('pins:show_pin', slug=slugify(pin.title), user_id=pin_id)
+
+    return render(request, 'pins/show-pin.html', {'pin': pin})
