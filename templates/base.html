@@ -1,0 +1,331 @@
+{% load static %}
+<!doctype html>
+<html lang="zxx" class="dark">
+
+<!-- Recocode.com TREWO NFT Marketplace HTML Template --->
+
+<head>
+    <!-- metas -->
+    <meta charset="utf-8">
+    <meta name="author" content="recocode" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="TREWO - NFT Marketplace Bootstrap 5 HTML Template" />
+    <meta name="description" content="TREWO - NFT Marketplace Bootstrap 5 HTML Template" />
+    <!-- title -->
+    <title>Trewo</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
+    <!-- CSS -->
+
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/magnific/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/owl-carousel/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'vendor/nice-select/nice-select.css' %}">
+
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+
+<body>
+    <!-- Skippy -->
+    <a id="skippy" class="sr-only sr-only-focusable u-skippy" href="#content">
+        <div class="container">
+            <span class="u-skiplink-text">Skip to main content</span>
+        </div>
+    </a>
+    <!-- End Skippy -->
+    <!-- Preload -->
+    <div id="loading" class="preloader-box">
+        <span style="--i:0;"></span>
+        <span style="--i:1;"></span>
+        <span style="--i:2;"></span>
+        <span style="--i:3;"></span>
+        <span style="--i:4;"></span>
+        <span style="--i:5;"></span>
+        <span style="--i:6;"></span>
+        <span style="--i:7;"></span>
+        <span style="--i:8;"></span>
+        <span style="--i:9;"></span>
+        <span style="--i:10;"></span>
+        <span style="--i:11;"></span>
+        <span style="--i:12;"></span>
+        <span style="--i:13;"></span>
+        <span style="--i:14;"></span>
+        <span style="--i:15;"></span>
+    </div>
+    <!-- End Preload -->
+    <!-- Wrapper -->
+    <div class="wrapper">
+        <!-- Header -->
+        <div class="header-height-bar"></div>
+        <header class="header-main fixed-top header-border-bottom header-height">
+            <nav class="navbar navbar-expand-xl">
+                <div class="container">
+                    <!-- Logo -->
+                    <a class="navbar-brand mx-md-0 mx-auto" href="/">
+                        <img class="logo-dark" src="{% static 'logo.png' %}" title="" alt="">
+                        <img class="logo-light" src="{% static 'light-logo.png' %}" title="" alt="">
+                    </a>
+                    <!-- Logo -->
+                     <!-- Menu -->
+                     <div class="collapse navbar-collapse ps-xl-5" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto">
+
+                            <a href="#" class="nav-link">About</a>
+
+                            <a href="#" class="nav-link">Blog</a>
+
+                            <a href="{% url 'pins:explore' %}" class="nav-link">
+                                Explore <span class="h-menu-lable">HOT
+                                    <span class="pulse"></span>
+                                </span>
+                            </a>
+
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link">Account</a>
+                                <label class="px-dropdown-toggle mob-menu bi bi-chevron-down"></label>
+                                <div class="dropdown-menu left">
+                                    <ul class="list-unstyled">
+                                        <li><a class="dropdown-item" href="{% url 'users:edit_profile' %}">Profile</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'users:edit_profile' %}">Edit Profile</a></li>
+                                        <li><a class="dropdown-item" href="#">Connect Wallet</a></li>
+                                        <li><a class="dropdown-item" href="#">Choose Blockchain</a></li>
+                                        <li><a class="dropdown-item" href="#">Add New Item</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'users:login' %}">Login</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'users:signup' %}">Sign Up</a></li>
+                                        <li><a class="dropdown-item" href="#">Forget Password</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <!-- End Menu -->
+                    <div class="header-end d-flex justify-content-center justify-content-md-end">
+                        <!-- Search -->
+                        <div class="h-col h-search collapse" id="header_search_bar1">
+                            <form class="h-search-form" action="{% url 'pins:explore' %}" method="GET">
+                                <input type="text" name="search" placeholder="Search Here" value="{{ search }}" class="form-control">
+                                <button class="search-btn"><i class="bi bi-search"></i></button>
+                            </form>
+                        </div>
+                        <div class="h-col h-search-toggle">
+                            <a class="h-search-icon" data-bs-toggle="collapse" href="#header_search_bar1" role="button" aria-expanded="false" aria-controls="header_search_bar1">
+                                <i class="bi bi-search"></i>
+                            </a>
+                        </div>
+                        <!-- Notification -->
+                        <div class="h-col h-notification dropdown">
+                            <button class="h-notification-icon dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-bell"></i>
+                                <sup>10</sup>
+                            </button>
+                            <div class="dropdown-menu">
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <div class="icon icon-md">
+                                            <img title="" alt="" src="{% static 'img.jpg' %}">
+                                        </div>
+                                        <div class="col">
+                                            <h6><a class="stretched-link text-reset" href="#">BoredApeYachtClub</a></h6>
+                                            <span>$4,656,886</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon icon-md">
+                                            <img title="" alt="" src="{% static 'img.jpg' %}">
+                                        </div>
+                                        <div class="col">
+                                            <h6><a class="stretched-link text-reset" href="#">BoredApeYachtClub</a></h6>
+                                            <span>$4,656,886</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="icon icon-md">
+                                            <img title="" alt="" src="{% static 'img.jpg' %}">
+                                        </div>
+                                        <div class="col">
+                                            <h6><a class="stretched-link text-reset" href="#">BoredApeYachtClub</a></h6>
+                                            <span>$4,656,886</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <div class="pt-3">
+                                    <a class="btn btn-primary btn-sm w-100" href="#">
+                                        View ALl
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Creat-->
+                        {% if not request.user.is_authenticated %}
+                            <div class="h-col h-create">
+                                <a class="h-create-btn" href="{% url 'users:login' %}">Log in</a>
+                            </div>
+                        {% endif %}
+
+                        {% if request.user.is_authenticated %}
+
+                        <!-- User -->
+                        <div class="h-col h-user dropdown">
+                            <button class="h-user-icon dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img title="" alt="" src="{{ request.user.avatar.url }}">
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-end">
+                                <div class="h-user-name">
+                                    <h6>{{ user.username|default:"user" }}</h6>
+{#                                    <small>AC: #323232</small>#}
+                                </div>
+                                <ul class="list-unstyled">
+                                    <li>
+                                        <a href="{% url 'users:edit_profile' %}"><i class="bi bi-person"></i> My Account</a>
+                                    </li>
+                                    <li>
+                                        <a href="{% url 'users:edit_profile' %}"><i class="bi bi-gear"></i> My Setting</a>
+                                    </li>
+                                    <li>
+{#                                        <a href="#"><i class="bi bi-lock"></i> Log Out</a>#}
+                                        <form action="{% url 'users:logout' %}" method="post">
+                                            {% csrf_token %}
+                                            <button style="all: unset" type="submit">
+                                                <a><i class="bi bi-lock"></i> Log Out</a>
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Switch -->
+                        <div class="h-col h-switch">
+                            <label class="theme-switch h-switch-icon" for="px_theme_mode">
+                                <input type="checkbox" id="px_theme_mode" />
+                                <i class="bi bi-sun h-dark-icon"></i>
+                                <i class="bi bi-moon h-light-icon"></i>
+                            </label>
+                        </div>
+                        <!-- Mobile Toggle -->
+                        <div class="h-col h-toggler d-xl-none ms-auto">
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                <span class="px-navbar-toggler-icon"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- End Header -->
+        <!-- Main -->
+
+        {% block content %}{% endblock %}
+
+        <!-- End Main -->
+          <!-- Footer-->
+          <footer class="footer footer-bg">
+            <div class="py-7 py-md-8 py-lg-10">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 my-3 me-auto">
+                            <div class="pb-4">
+                                <img class="footer-logo-light" src="{% static 'light-logo.png' %}" title="" alt="">
+                                <img class="footer-logo-dark" src="{% static 'logo.png' %}" title="" alt="">
+                            </div>
+                            <p>Crypto collectibles and non-fungible tokens (NFTs). Buy, sell, and discover exclusive digital items.</p>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 my-3">
+                            <h5 class="footer-title-01">Marketplace</h5>
+                            <ul class="list-unstyled footer-link-01 m-0">
+                                <li>
+                                    <a class="link-white" href="#">All NFTs</a>
+                                </li>
+                                <li>
+                                    <a class="link-white" href="#">New</a>
+                                </li>
+                                <li>
+                                    <a class="link-white" href="#">Collectibles</a>
+                                </li>
+                                <li>
+                                    <a class="link-white" href="#">Photography</a>
+                                </li>
+                                <li>
+                                    <a class="link-white" href="#">Trading Cards</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 my-3">
+                            <h5 class="footer-title-01">Resources</h5>
+                            <ul class="list-unstyled footer-link-01 m-0">
+                                <li>
+                                    <a class="link-white" href="#">Help Center</a>
+                                </li>
+                                <li>
+                                    <a class="link-white" href="#">Platform Status</a>
+                                </li>
+                                <li>
+                                    <a class="link-white" href="#">About Us</a>
+                                </li>
+                                <li>
+                                    <a class="link-white" href="#">Copyright</a>
+                                </li>
+                                <li>
+                                    <a class="link-white" href="#">Popular Campaign</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 col-sm-6 my-3">
+                            <h5 class="footer-title-01">Stay up to date</h5>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
+                            <form>
+                                <div class="d-flex flex-row">
+                                    <input type="email" class="form-control me-2" placeholder="Enter your username">
+                                    <button class="btn btn-primary flex-shrink-0" type="submit"><i class="fas fa-envelope"></i></button>
+                                </div>
+                                <p class="m-0 mt-2 small">New UI kits or big discounts. Never spam.</p>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr class="m-0 border-gray-100 opacity-1">
+            <div class="container">
+                <div class="row py-3 gy-3 align-items-center">
+                    <div class="col-md-12 text-center">
+                        <p class="text-white-85 small m-0">© 2022 Trewo is Powered by <a href="http://recocode.com/" target="_blank" class="text-reset">Recocode</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- End Footer -->
+    </div>
+    <!-- End Wrapper -->
+    <!-- jquery -->
+    <script src="{% static 'js/jquery-3.5.1.min.js' %}"></script>
+    <script src="{% static 'js/js.cookie.js' %}"></script>
+    <!-- appear -->
+    <script src="{% static 'vendor/appear/jquery.appear.js' %}"></script>
+    <!--bootstrap-->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- countTo -->
+    <script src="{% static 'vendor/counter/jquery.countTo.js'%}"></script>
+    <!-- owl-carousel -->
+    <script src=".{% static 'vendor/owl-carousel/js/owl.carousel.min.js'%}"></script>
+    <!-- magnific -->
+    <script src="{% static 'vendor/magnific/jquery.magnific-popup.min.js'%}"></script>
+    <!-- count-down -->
+    <script src="{% static 'vendor/count-down/jquery.countdown.min.js'%}"></script>
+    <!-- nice-select -->
+    <script src="{% static 'vendor/nice-select/jquery.nice-select.min.js'%}"></script>
+    <!-- Dark Mode -->
+    <script src="{% static 'vendor/dark/darkmode.js'%}"></script>
+    <!-- working form -->
+    <script src="{% static 'vendor/mail/js/form.min.js'%}"></script>
+    <script src="{% static 'vendor/mail/js/script.js'%}"></script>
+    <!-- Theme Js -->
+    <script src="{% static 'js/custom.js'%}"></script>
+</body>
+<!-- end body -->
+
+<!-- Recocode.com TREWO NFT Marketplace HTML Template --->
+</html>

@@ -1,0 +1,250 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- Main -->
+<main>
+    <!-- Section -->
+    <section class="py-5 py-lg-8 border-bottom border-gray-100">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="m-0">Explore All Pins</h1>
+            </div>
+        </div>
+    </section>
+    <!-- End Section -->
+    <!-- Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4">
+                    <div class="card">
+                        <div class="card-header">
+                            <h6 class="m-0">Explore Filter</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label">Sort by</label>
+                                <select class="px-nice-select" onchange="handleSortChange(this)">
+                                    <option data-display="Sort by">Sort by</option>
+                                    <option value="justAdded">Recently added</option>
+                                    <option value="lowToHigh">Price: Low to High</option>
+                                    <option value="highToLow">Price: High to Low</option>
+                                    <option value="4">Auction ending soon</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">LIKES</label>
+                                <select class="px-nice-select" onchange="handleSortChange(this)">
+                                    <option data-display="All">All</option>
+                                    <option value="mostLiked">Most liked</option>
+                                    <option value="leastLike">Least liked</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Category</label>
+                                <select class="px-nice-select">
+                                    <option data-display="All Category">All Category</option>
+                                    <option value="1">Art</option>
+                                    <option value="1">Photograph</option>
+                                    <option value="2">Metaverses</option>
+                                    <option value="4">Potato</option>
+                                    <option value="4">Photos</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Collections</label>
+                                <select class="px-nice-select">
+                                    <option data-display="All Collections">All Collections</option>
+                                    <option value="1">MutantApeYachtClub</option>
+                                    <option value="2">BoredApeYachtClub</option>
+                                    <option value="4">RTFKT - CloneX Mintvial</option>
+                                    <option value="5">Town Star</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Sale type</label>
+                                <select class="px-nice-select">
+                                    <option data-display="Sale type">Sale type</option>
+                                    <option value="1">Timed auction</option>
+                                    <option value="1">Fixed price</option>
+                                    <option value="1">Not for sale</option>
+                                    <option value="1">Open for offers</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="form-label">Price range</label>
+                                <select class="px-nice-select">
+                                    <option data-display="ETH">ETH</option>
+                                    <option value="1">WETH</option>
+                                    <option value="1">FLOW</option>
+                                    <option value="1">FUSD</option>
+                                    <option value="1">XTZ</option>
+                                </select>
+                                <div class="row pt-3">
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="From" name="low">
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control" placeholder="To" name="high">
+                                    </div>
+                                    <div class="col-12 pt-3">
+                                        <button class="btn btn-primary w-100 btn-sm">Apply Price</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8 mt-5 mt-lg-0">
+
+                {% for pin in pins %}
+                    <div class="row gy-4">
+                        <div class="col-sm-6 col-lg-4">
+                            <div class="product-card">
+                                <div class="product-card-user mb-3">
+                                    <div class="avatar-group">
+                                        <div class="avatar avatar-xs">
+                                            <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Martin">
+                                                <img class="avatar-img rounded-circle" src="../media/{{pin.creator.avatar}}" title="" alt="">
+                                                <div class="avatar-status text-primary border-0">
+                                                    <i class="bi bi-check-circle-fill"></i>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown">
+                                        <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="bi bi-three-dots-vertical"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end">
+                                            <li><a class="dropdown-item" href="#">New bid</a></li>
+                                            <li><a class="dropdown-item" href="#">Buy now</a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li><a class="dropdown-item" href="#">View on OpenSea</a></li>
+                                            <li><a class="dropdown-item" href="#">Refresh Metadata</a></li>
+                                            <li><a class="dropdown-item" href="#">Share</a></li>
+                                            <li><a class="dropdown-item" href="#">Report</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="product-card-img-box">
+                                    <a href="#">
+                                        <img class="product-card-img" src="{{pin.image}}" title="" alt="">
+                                    </a>
+                                </div>
+                                <div class="product-card-body">
+                                    <div class="product-title mb-3">
+                                        <h6 class="m-0">
+                                            <a class="text-reset stretched-linka" href="#">{{pin.title}}</a>
+                                        </h6>
+                                        <span class="small">Highest bid 5/11</span>
+                                    </div>
+                                    <div class="product-actions d-flex align-items-end">
+                                        <div class="price">
+                                            <h6 class="m-0">{{pin.price}} ETH <span class="text-body fw-400">1/1</span> </h6>
+                                            <a class="link-primary small fw-600" href="#">Buy Now</a>
+                                        </div>
+                                        {% if current_user in pin.liked_users.all %}
+                                            <div class="like ms-auto">
+                                                <a href="#" class="d-flex lh-1 fw-500 text-reset" id="likeButton-{{ pin.id }}" onclick="oddLike({{ pin.id }})">
+                                                    <i class="bi bi-heart me-1 pink-heart" style="color: pink;"></i> <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
+                                                </a>
+                                            </div>
+                                        {% else %}
+                                            <div class="like ms-auto">
+                                                <a href="#" class="d-flex lh-1 fw-500 text-reset" id="likeButton-{{ pin.id }}" onclick="addLike({{ pin.id }})">
+                                                    <i class="bi bi-heart me-1"></i> <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
+                                                </a>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <h1>Nothing found</h1>
+                {% endfor %}
+                    <div class="pt-7">
+                        <ul class="pagination justify-content-center m-0">
+                            <li class="page-item "><a class="page-link" href="#">Previous</a></li>
+                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Section -->
+</main>
+<!-- End Main -->
+<script>
+    function handleSortChange(selectElement) {
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var sortValue = selectedOption.value;
+
+        console.log("Selected sort value:", sortValue);
+
+        var url = 'http://127.0.0.1:8000/pins/explore?sort=' + sortValue;
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (response) {
+                window.location.href = url;
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+
+    function addLike(pinId) {
+        var url = '/pins/pin/' + pinId + '/like/';
+        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            },
+            success: function (response) {
+                var likeCountElement = $('#like-count-' + pinId);
+                var newLikeCount = parseInt(likeCountElement.text()) + 1;
+                likeCountElement.text(newLikeCount);
+                $('#likeButton-' + pinId).attr('onclick', 'oddLike(' + pinId + ')');
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+
+    function oddLike(pinId) {
+        var url = '/pins/pin/' + pinId + '/unlike/';
+        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            },
+            success: function (response) {
+                var likeCountElement = $('#like-count-' + pinId);
+                var newLikeCount = parseInt(likeCountElement.text()) - 1;
+                likeCountElement.text(newLikeCount);
+                $('#likeButton-' + pinId).attr('onclick', 'addLike(' + pinId + ')');
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+</script>
+{% endblock %}
