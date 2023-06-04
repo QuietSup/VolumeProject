@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from Volume.models import Pin
 from pins.forms import CreatePinForm
@@ -31,7 +31,6 @@ def explore(request):
             pins = Pin.objects.order_by('updated_at')
 
     return render(request, 'pins/explore.html', {'pins': pins, 'current_user': request.user})
-
 
 def add_like(request, pinId):
     pin = get_object_or_404(Pin, id=int(pinId))
