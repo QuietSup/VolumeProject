@@ -174,7 +174,15 @@
                         <!-- User -->
                         <div class="h-col h-user dropdown">
                             <button class="h-user-icon dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+
+                                {% if request.user.avatar %}
                                 <img title="" alt="" src="{{ request.user.avatar.url }}">
+
+                                {% else %}
+                                <img title="" alt="" src="{% static 'img.jpg' %}">
+
+                                {% endif %}
+
                             </button>
                             <div class="dropdown-menu dropdown-menu-end">
                                 <div class="h-user-name">
