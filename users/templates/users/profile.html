@@ -28,8 +28,8 @@
                         class="avatar-status border-0 bg-primary text-white d-inline-flex align-items-center justify-content-center">
                         <i class="bi bi-check m-0 text-white"></i>
                     </div>
-                </div>
                 {% endif %}
+            </div>
 
                 <div class="pt-3">
 
@@ -96,19 +96,21 @@
                     <div class="tab-pane fade show active" id="user-items" role="tabpanel"
                         aria-labelledby="user-items-tab">
                         <div class="row gy-4">
+
+                            {% for pin in pins %}
+
                             <div class="col-md-4 col-sm-6 col-lg-3">
                                 <div class="product-card">
                                     <div class="product-card-img-box">
-                                        <a href="#">
-                                            <img class="product-card-img" src="../../assets/img/product-9.jpg"
+                                        <a href="{% url 'pins:show_pin' 'pin' pin.pk %}">
+                                            <img class="product-card-img" src="{{ pin.image.url }}"
                                                 title="" alt="">
                                         </a>
                                     </div>
                                     <div class="product-card-body">
                                         <div class="product-title mb-3">
                                             <h6 class="m-0">
-                                                <a class="text-reset stretched-linka" href="#">Space Shapes
-                                                    #3</a>
+                                                <a class="text-reset stretched-linka" href="#">{{ pin.title }}</a>
                                             </h6>
                                             <span class="small">Highest bid 5/11</span>
                                         </div>
@@ -127,99 +129,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4 col-sm-6 col-lg-3">
-                                <div class="product-card">
-                                    <div class="product-card-img-box">
-                                        <a href="#">
-                                            <img class="product-card-img" src="../../assets/img/product-8.jpg"
-                                                title="" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="product-card-body">
-                                        <div class="product-title mb-3">
-                                            <h6 class="m-0">
-                                                <a class="text-reset stretched-linka" href="#">Space Shapes
-                                                    #3</a>
-                                            </h6>
-                                            <span class="small">Highest bid 5/11</span>
-                                        </div>
-                                        <div class="product-actions d-flex align-items-end">
-                                            <div class="price">
-                                                <h6 class="m-0">3.99 ETH <span
-                                                        class="text-body fw-400">1/1</span> </h6>
-                                                <a class="link-primary small fw-600" href="#">Buy Now</a>
-                                            </div>
-                                            <div class="like ms-auto">
-                                                <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                                    <i class="bi bi-heart me-1"></i> <small>811</small>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 col-lg-3">
-                                <div class="product-card">
-                                    <div class="product-card-img-box">
-                                        <a href="#">
-                                            <img class="product-card-img" src="../../assets/img/product-7.jpg"
-                                                title="" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="product-card-body">
-                                        <div class="product-title mb-3">
-                                            <h6 class="m-0">
-                                                <a class="text-reset stretched-linka" href="#">Space Shapes
-                                                    #3</a>
-                                            </h6>
-                                            <span class="small">Highest bid 5/11</span>
-                                        </div>
-                                        <div class="product-actions d-flex align-items-end">
-                                            <div class="price">
-                                                <h6 class="m-0">3.99 ETH <span
-                                                        class="text-body fw-400">1/1</span> </h6>
-                                                <a class="link-primary small fw-600" href="#">Buy Now</a>
-                                            </div>
-                                            <div class="like ms-auto">
-                                                <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                                    <i class="bi bi-heart me-1"></i> <small>811</small>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4 col-sm-6 col-lg-3">
-                                <div class="product-card">
-                                    <div class="product-card-img-box">
-                                        <a href="#">
-                                            <img class="product-card-img" src="../../assets/img/product-5.jpg"
-                                                title="" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="product-card-body">
-                                        <div class="product-title mb-3">
-                                            <h6 class="m-0">
-                                                <a class="text-reset stretched-linka" href="#">Space Shapes
-                                                    #3</a>
-                                            </h6>
-                                            <span class="small">Highest bid 5/11</span>
-                                        </div>
-                                        <div class="product-actions d-flex align-items-end">
-                                            <div class="price">
-                                                <h6 class="m-0">3.99 ETH <span
-                                                        class="text-body fw-400">1/1</span> </h6>
-                                                <a class="link-primary small fw-600" href="#">Buy Now</a>
-                                            </div>
-                                            <div class="like ms-auto">
-                                                <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                                    <i class="bi bi-heart me-1"></i> <small>811</small>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
+                            {% empty %}
+                                <h1>Nothing</h1>
+                            {% endfor %}
+
                         </div>
                     </div>
                     <div class="tab-pane fade" id="user-activity" role="tabpanel"
