@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from Volume.models import Pin
-from pins.forms import CreatePinForm
+from pins.forms import CreatePinForm, UpdatePinForm
 from django.utils.text import slugify
 
 
@@ -64,3 +64,23 @@ def show_pin(request, slug, pin_id):
         return redirect('pins:show_pin', slug=slugify(pin.title), user_id=pin_id)
 
     return render(request, 'pins/show-pin.html', {'pin': pin})
+
+def edit_pin(request, pin_id):
+    pin = get_object_or_404(Pin, pk=pin_id)
+
+    if request.method == 'POST':
+        form = UpdatePinForm(request.POST, request.FILES, instance=pin)
+        if form.is_valid():
+            if not form.fields['image']:
+                updated_pin: Pin = form.save(commit=False)
+                updated_pin.save(update_fields=[x for x in form.fields.keys() if x!='image'])
+
+            else:
+                form.save()
+            return redirect('pins:show_pin', slugify(form.fields['title']), pin.pk)
+
+    else:
+        form = UpdatePinForm(instance=pin)
+        print()
+
+    return render(request, 'pins/edit-pin.html', {'form': form, 'pin_id': pin_id})
