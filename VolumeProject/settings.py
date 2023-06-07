@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os.path
 from pathlib import Path
+from google.oauth2 import service_account
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -24,15 +25,14 @@ SECRET_KEY = 'django-insecure-x&&8q55+nka(*1*+d75*2*zr60g_cm2w7k*4%3$m(hd$4ef7-3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+# DEBUG_PROPAGATE_EXCEPTIONS = True
 ALLOWED_HOSTS = ['*']
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'cloudinary_storage',
-    'cloudinary',
+    # 'cloudinary_storage',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,10 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'Volume.apps.VolumeConfig',
 
     'users',
     'pins',
+
+    # 'cloudinary',
 
     'django_cleanup.apps.CleanupConfig',
 ]
@@ -51,7 +54,8 @@ INSTALLED_APPS = [
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dqaqip4oc',
     'API_KEY': '385923176847598',
-    'API_SECRET': 'DfzXVtzseD0ONZ9FqYH5bozD3W4'
+    'API_SECRET': 'DfzXVtzseD0ONZ9FqYH5bozD3W4',
+'STATICFILES_MANIFEST_ROOT': os.path.join(BASE_DIR, 'manifest'),
 }
 
 
@@ -144,11 +148,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+
+# if not DEBUG:
+    # STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 STATICFILES_DIRS = [
-    BASE_DIR / "assets",
+    BASE_DIR / "static",
 ]
-STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+
+# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -160,6 +169,18 @@ LOGIN_URL = 'users:login'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 
+# Google Cloud Storage
+# GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+#     os.path.join(BASE_DIR, 'eastern-rider-389013-6a0d9898746e.json')
+# )
+
+# STORAGES = {
+#     "default": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"},
+#     "staticfiles": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"}
+# }
+
+
+
+# GS_BUCKET_NAME = 'volume-project'
