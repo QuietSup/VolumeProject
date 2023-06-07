@@ -96,76 +96,13 @@
                 </div>
                 <div class="col-lg-9 col-md-8 mt-5 mt-lg-0">
 
-                {% for pin in pins %}
                     <div class="row gy-4">
-                        <div class="col-sm-6 col-lg-4">
-                            <div class="product-card">
-                                <div class="product-card-user mb-3">
-                                    <div class="avatar-group">
-                                        <div class="avatar avatar-xs">
-                                            <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Martin">
-                                                <img class="avatar-img rounded-circle" src="../media/{{pin.creator.avatar}}" title="" alt="">
-                                                <div class="avatar-status text-primary border-0">
-                                                    <i class="bi bi-check-circle-fill"></i>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="dropdown">
-                                        <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="bi bi-three-dots-vertical"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-end">
-                                            <li><a class="dropdown-item" href="#">New bid</a></li>
-                                            <li><a class="dropdown-item" href="#">Buy now</a></li>
-                                            <li>
-                                                <hr class="dropdown-divider">
-                                            </li>
-                                            <li><a class="dropdown-item" href="#">View on OpenSea</a></li>
-                                            <li><a class="dropdown-item" href="#">Refresh Metadata</a></li>
-                                            <li><a class="dropdown-item" href="#">Share</a></li>
-                                            <li><a class="dropdown-item" href="#">Report</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="product-card-img-box">
-                                    <a href="#">
-                                        <img class="product-card-img" src="{{pin.image}}" title="" alt="">
-                                    </a>
-                                </div>
-                                <div class="product-card-body">
-                                    <div class="product-title mb-3">
-                                        <h6 class="m-0">
-                                            <a class="text-reset stretched-linka" href="#">{{pin.title}}</a>
-                                        </h6>
-                                        <span class="small">Highest bid 5/11</span>
-                                    </div>
-                                    <div class="product-actions d-flex align-items-end">
-                                        <div class="price">
-                                            <h6 class="m-0">{{pin.price}} ETH <span class="text-body fw-400">1/1</span> </h6>
-                                            <a class="link-primary small fw-600" href="#">Buy Now</a>
-                                        </div>
-                                        {% if current_user in pin.liked_users.all %}
-                                            <div class="like ms-auto">
-                                                <a href="#" class="d-flex lh-1 fw-500 text-reset" id="likeButton-{{ pin.id }}" onclick="oddLike({{ pin.id }})">
-                                                    <i class="bi bi-heart me-1 pink-heart" style="color: pink;"></i> <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
-                                                </a>
-                                            </div>
-                                        {% else %}
-                                            <div class="like ms-auto">
-                                                <a href="#" class="d-flex lh-1 fw-500 text-reset" id="likeButton-{{ pin.id }}" onclick="addLike({{ pin.id }})">
-                                                    <i class="bi bi-heart me-1"></i> <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
-                                                </a>
-                                            </div>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                {% for pin in pins %}
+                    {% include 'pins/explore-pin-tile.html' %}
                 {% empty %}
                     <h1>Nothing found</h1>
                 {% endfor %}
+                    </div>
                     <div class="pt-7">
                         <ul class="pagination justify-content-center m-0">
                             <li class="page-item "><a class="page-link" href="#">Previous</a></li>

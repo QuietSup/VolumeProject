@@ -99,36 +99,7 @@
 
                             {% for pin in pins %}
 
-                            <div class="col-md-4 col-sm-6 col-lg-3">
-                                <div class="product-card">
-                                    <div class="product-card-img-box">
-                                        <a href="{% url 'pins:show_pin' 'pin' pin.pk %}">
-                                            <img class="product-card-img" src="{{ pin.image.url }}"
-                                                title="" alt="">
-                                        </a>
-                                    </div>
-                                    <div class="product-card-body">
-                                        <div class="product-title mb-3">
-                                            <h6 class="m-0">
-                                                <a class="text-reset stretched-linka" href="#">{{ pin.title }}</a>
-                                            </h6>
-                                            <span class="small">Highest bid 5/11</span>
-                                        </div>
-                                        <div class="product-actions d-flex align-items-end">
-                                            <div class="price">
-                                                <h6 class="m-0">3.99 ETH <span
-                                                        class="text-body fw-400">1/1</span> </h6>
-                                                <a class="link-primary small fw-600" href="#">Buy Now</a>
-                                            </div>
-                                            <div class="like ms-auto">
-                                                <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                                    <i class="bi bi-heart me-1"></i> <small>811</small>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                {% include 'pins/pin-tile.html' %}
 
                             {% empty %}
                                 <h1>Nothing</h1>

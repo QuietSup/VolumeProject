@@ -3,9 +3,9 @@ from django.http import HttpResponse
 from Volume.models import Pin
 from pins.forms import CreatePinForm, UpdatePinForm
 from django.utils.text import slugify
+from django.contrib.auth.decorators import login_required
 
 
-# Create your views here.
 def explore(request):
     if request.method == 'POST':
         pass
@@ -32,19 +32,21 @@ def explore(request):
 
     return render(request, 'pins/explore.html', {'pins': pins, 'current_user': request.user})
 
+@login_required
 def add_like(request, pinId):
     pin = get_object_or_404(Pin, id=int(pinId))
     pin.increase_likes()
     request.user.liked_pins.add(pin)
     return HttpResponse(status=200)
 
-
+@login_required
 def remove_like(request, pinId):
     pin = get_object_or_404(Pin, id=int(pinId))
     pin.decrease_likes()
     request.user.liked_pins.remove(pin)
     return HttpResponse(status=200)
 
+@login_required
 def create_pin(request):
     if request.method == 'POST':
         form = CreatePinForm(request.POST, request.FILES)
@@ -52,7 +54,7 @@ def create_pin(request):
             pin = form.save(commit=False)
             pin.creator = request.user
             pin.save()
-            redirect('pins:show_pin', slugify(pin.title), pin.id)
+            return redirect('pins:show_pin', slugify(pin.title), pin.id)
     else:
         form = CreatePinForm()
     return render(request, 'pins/new-item.html', {'form': form})
@@ -63,9 +65,15 @@ def show_pin(request, slug, pin_id):
     if slugify(pin.title) != slug:
         return redirect('pins:show_pin', slug=slugify(pin.title), pin_id=pin_id)
 
-    return render(request, 'pins/show-pin.html', {'pin': pin})
+    creator_pins = pin.creator.pin_set.order_by('created_at').exclude(pk=pin_id)[:6]
 
+    return render(request, 'pins/show-pin.html', {'pin': pin, 'creator_pins': creator_pins})
+
+@login_required
 def edit_pin(request, pin_id):
+    if not request.user.pin_set.filter(pk=pin_id):
+        redirect('pins:explore')
+
     pin = get_object_or_404(Pin, pk=pin_id)
 
     if request.method == 'POST':
@@ -81,6 +89,15 @@ def edit_pin(request, pin_id):
 
     else:
         form = UpdatePinForm(instance=pin)
-        print()
 
     return render(request, 'pins/edit-pin.html', {'form': form, 'pin_id': pin_id})
+
+@login_required
+def delete_pin(request, pin_id):
+    if not request.user.pin_set.filter(pk=pin_id):
+        return redirect('pins:explore')
+
+    pin = get_object_or_404(Pin, pk=pin_id)
+    pin.delete()
+
+    return redirect('pins:explore')
