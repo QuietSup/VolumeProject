@@ -25,14 +25,12 @@ SECRET_KEY = 'django-insecure-x&&8q55+nka(*1*+d75*2*zr60g_cm2w7k*4%3$m(hd$4ef7-3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-# DEBUG_PROPAGATE_EXCEPTIONS = True
+DEBUG_PROPAGATE_EXCEPTIONS = True
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
 INSTALLED_APPS = [
-    # 'cloudinary_storage',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -46,10 +44,10 @@ INSTALLED_APPS = [
     'users',
     'pins',
 
-    # 'cloudinary',
-
     'django_cleanup.apps.CleanupConfig',
+    'django_bootstrap_icons',
 ]
+
 
 CLOUDINARY_STORAGE = {
     'CLOUD_NAME': 'dqaqip4oc',
@@ -60,6 +58,7 @@ CLOUDINARY_STORAGE = {
 
 
 MIDDLEWARE = [
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',

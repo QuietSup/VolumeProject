@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-
+{% load bootstrap_icons %}
 <!-- Main -->
 <main>
     <!-- Section -->
@@ -17,13 +17,13 @@
                         <div class="pd-heading">
                             <h1 class="m-0 h2">{{ pin.title }}</h1>
                             <div class="pd-heading-right d-flex">
-                                <button class="wishlist-btn"><i class="bi bi-heart"></i></button>
+                                <button class="wishlist-btn">{% bs_icon 'heart' %}</button>
 
                                 {% if pin.creator.pk == request.user.pk %}
                                 <div class="dropdown">
                                     <button class="bid-btn dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="bi bi-three-dots"></i>
+                                        {% bs_icon 'three-dots' %}
                                     </button>
 
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -216,7 +216,7 @@
                                             <div class="col-auto">
                                                 <a class="px-3 py-1 small rounded bg-primary text-white d-block rounded-pill"
                                                     href="#">
-                                                    <i class="bi bi-rainbow me-1"></i> Art
+                                                    {% bs_icon 'rainbow' extra_classes='me-1' %} Art
                                                 </a>
                                             </div>
                                         </div>
@@ -283,7 +283,7 @@
                                             <p class="m-0">Bid cancelled by <a class="text-mode"
                                                     href="#">0x41025f8b8...9eea</a></p>
                                             <span class="small">1 hours ago <a class="text-mode ms-1"
-                                                    href="#"><i class="bi bi-box-arrow-up-right"></i></a>
+                                                    href="#">{% bs_icon 'box-arrow-up-right' %}</a>
                                             </span>
                                         </div>
                                     </div>
@@ -296,7 +296,7 @@
                                             <p class="m-0">Bid cancelled by <a class="text-mode"
                                                     href="#">0x41025f8b8...9eea</a></p>
                                             <span class="small">1 hours ago <a class="text-mode ms-1"
-                                                    href="#"><i class="bi bi-box-arrow-up-right"></i></a>
+                                                    href="#">{% bs_icon 'box-arrow-up-right' %}</a>
                                             </span>
                                         </div>
                                     </div>
@@ -322,7 +322,7 @@
                                             <p class="m-0">Unlisted by <a class="text-mode"
                                                     href="#">0x41025f8b8...9eea</a></p>
                                             <span class="small">1 hours ago <a class="text-mode ms-1"
-                                                    href="#"><i class="bi bi-box-arrow-up-right"></i></a>
+                                                    href="#">{% bs_icon 'box-arrow-up-right' %}</a>
                                             </span>
                                         </div>
                                     </div>
@@ -335,7 +335,7 @@
                                             <p class="m-0">Listed 1 edition for <a class="text-mode"
                                                     href="#">0x41025f8b8...9eea</a></p>
                                             <span class="small">1 hours ago <a class="text-mode ms-1"
-                                                    href="#"><i class="bi bi-box-arrow-up-right"></i></a>
+                                                    href="#">{% bs_icon 'box-arrow-up-right' %}</a>
                                             </span>
                                         </div>
                                     </div>
@@ -404,7 +404,7 @@
                         {% if pin.creator.pk == request.user.pk %}
                         <div class="dropdown">
                             <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
+                                {% bs_icon 'three-dots-vertical' %}
                             </button>
 
                                 <ul class="dropdown-menu dropdown-menu-end">
@@ -437,7 +437,7 @@
                             </div>
                             <div class="like ms-auto">
                                 <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                    <i class="bi bi-heart me-1"></i> <small>811</small>
+                                    {% bs_icon 'heart' extra_classes='me-1' %} <small>811</small>
                                 </a>
                             </div>
                         </div>

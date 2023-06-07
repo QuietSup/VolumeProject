@@ -1,4 +1,6 @@
 {% load static %}
+{% load bootstrap_icons %}
+
 <!doctype html>
 <html lang="zxx" class="dark">
 
@@ -25,14 +27,6 @@
     <link rel="stylesheet" href="{% static 'vendor/nice-select/nice-select.css' %}">
 
     <link rel="stylesheet" href="{% static 'style.css' %}">
-    <style>
-        @import url({% static 'vendor/bootstrap/icons/bootstrap-icons.css' %});
-        @import url({% static 'vendor/fontawesome/css/all.min.css' %});
-        @import url({% static 'vendor/magnific/magnific-popup.css' %});
-        @import url({% static 'vendor/owl-carousel/css/owl.carousel.min.css' %});
-        @import url({% static 'vendor/nice-select/nice-select.css' %});
-
-    </style>
 </head>
 
 <body>
@@ -98,18 +92,18 @@
                         <div class="h-col h-search collapse" id="header_search_bar1">
                             <form class="h-search-form" action="{% url 'pins:explore' %}" method="GET">
                                 <input type="text" name="search" placeholder="Search Here" value="{{ search }}" class="form-control">
-                                <button class="search-btn"><i class="bi bi-search"></i></button>
+                                <button class="search-btn">{% bs_icon 'search' %}</button>
                             </form>
                         </div>
                         <div class="h-col h-search-toggle">
                             <a class="h-search-icon" data-bs-toggle="collapse" href="#header_search_bar1" role="button" aria-expanded="false" aria-controls="header_search_bar1">
-                                <i class="bi bi-search"></i>
+                                {% bs_icon 'search' %}
                             </a>
                         </div>
                         <!-- Notification -->
                         <div class="h-col h-notification dropdown">
                             <button class="h-notification-icon dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-bell"></i>
+                                {% bs_icon 'bell' %}
                                 <sup>10</sup>
                             </button>
                             <div class="dropdown-menu">
@@ -178,17 +172,16 @@
                                 </div>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="{% url 'users:profile' request.user.username request.user.pk %}"><i class="bi bi-person"></i> My Account</a>
+                                        <a href="{% url 'users:profile' request.user.username request.user.pk %}">{% bs_icon 'person' %} My Account</a>
                                     </li>
                                     <li>
-                                        <a href="{% url 'users:edit_profile' %}"><i class="bi bi-gear"></i> My Setting</a>
+                                        <a href="{% url 'users:edit_profile' %}">{% bs_icon 'gear' %}My Setting</a>
                                     </li>
                                     <li>
-{#                                        <a href="#"><i class="bi bi-lock"></i> Log Out</a>#}
                                         <form action="{% url 'users:logout' %}" method="post">
                                             {% csrf_token %}
                                             <button style="all: unset" type="submit">
-                                                <a><i class="bi bi-lock"></i> Log Out</a>
+                                                <a>{% bs_icon 'lock' %} Log Out</a>
                                             </button>
                                         </form>
                                     </li>
@@ -197,14 +190,6 @@
                         </div>
                         {% endif %}
 
-                        <!-- Switch -->
-                        <div class="h-col h-switch">
-                            <label class="theme-switch h-switch-icon" for="px_theme_mode">
-                                <input type="checkbox" id="px_theme_mode" />
-                                <i class="bi bi-sun h-dark-icon"></i>
-                                <i class="bi bi-moon h-light-icon"></i>
-                            </label>
-                        </div>
                         <!-- Mobile Toggle -->
                         <div class="h-col h-toggler d-xl-none ms-auto">
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

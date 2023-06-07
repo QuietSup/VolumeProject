@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+    {% load bootstrap_icons %}
     {% load static %}
 
 <!-- Main -->
@@ -26,7 +27,7 @@
                 {% if user.is_superuser %}
                     <div
                         class="avatar-status border-0 bg-primary text-white d-inline-flex align-items-center justify-content-center">
-                        <i class="bi bi-check m-0 text-white"></i>
+                        {% bs_icon 'check' extra_classes='m-0 text-white' %}
                     </div>
                 {% endif %}
             </div>
@@ -45,26 +46,28 @@
 
                     <div><a href="#" class="h4 text-gradient">{{ '@'|add:user.username }}</a></div>
                     <div class="d-flex justify-content-center pt-4">
-                        <a class="btn btn-primary-soft btn-sm me-3" href="#"> <i
-                                class="bi bi-person-plus me-2"></i> Follow </a>
+                        <a class="btn btn-primary-soft btn-sm me-3" href="#">
+                            {% bs_icon 'person-plus' extra_classes='me-2' %}
+                            Follow
+                        </a>
                         <div class="dropdown me-3">
                             <button class="btn btn-primary-soft btn-sm after-none dropdown-toggle" type="button"
                                 id="use_share_dorp" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-share-fill"></i>
+                                {% bs_icon 'share-fill' %}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="use_share_dorp">
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-facebook me-2"></i>
+                                <li><a class="dropdown-item" href="#">{% bs_icon 'facebook' extra_classes='me-2' %}
                                         Facebook </a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-twitter me-2"></i> Twitter
+                                <li><a class="dropdown-item" href="#">{% bs_icon 'twitter' extra_classes='me-2' %} Twitter
                                     </a></li>
-                                <li><a class="dropdown-item" href="#"><i class="bi bi-instagram me-2"></i>
+                                <li><a class="dropdown-item" href="#">{% bs_icon 'instagram' extra_classes='me-2' %}
                                         Instagram </a></li>
                             </ul>
                         </div>
                         <div class="dropdown">
                             <button class="btn btn-primary-soft btn-sm after-none dropdown-toggle" type="button"
                                 id="user_clam_drop" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-exclamation-circle-fill"></i>
+                                {% bs_icon 'exclamation-circle-fill' %}
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user_clam_drop">
                                 <li><a class="dropdown-item" href="#">Claim ownership</a></li>

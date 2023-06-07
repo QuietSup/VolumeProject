@@ -1,3 +1,4 @@
+{% load bootstrap_icons %}
 <div class="col-sm-6 col-lg-4">
     <div class="product-card">
         <div class="product-card-user mb-3">
@@ -6,7 +7,7 @@
                     <a href="{% url 'users:profile' 'a' pin.creator.pk %}" data-bs-toggle="tooltip" data-bs-original-title="Martin">
                         <img class="avatar-img rounded-circle" src="{{ pin.creator.avatar.url }}" title="" alt="">
                         <div class="avatar-status text-primary border-0">
-                            <i class="bi bi-check-circle-fill"></i>
+                            {% bs_icon 'check-circle-fill' %}
                         </div>
                     </a>
                 </div>
@@ -15,7 +16,7 @@
             {% if pin.creator.pk == request.user.pk %}
             <div class="dropdown">
                 <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="bi bi-three-dots-vertical"></i>
+                    {% bs_icon 'three-dots-vertical' %}
                 </button>
 
                     <ul class="dropdown-menu dropdown-menu-end">
@@ -49,13 +50,13 @@
                 {% if current_user in pin.liked_users.all %}
                     <div class="like ms-auto">
                         <a href="#" class="d-flex lh-1 fw-500 text-reset" id="likeButton-{{ pin.id }}" onclick="oddLike({{ pin.id }})">
-                            <i class="bi bi-heart me-1 pink-heart" style="color: pink;"></i> <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
+                            {% bs_icon 'heart' extra_classes='me-1 pink-heart' color='pink' %} <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
                         </a>
                     </div>
                 {% else %}
                     <div class="like ms-auto">
                         <a href="#" class="d-flex lh-1 fw-500 text-reset" id="likeButton-{{ pin.id }}" onclick="addLike({{ pin.id }})">
-                            <i class="bi bi-heart me-1"></i> <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
+                            {% bs_icon 'heart' extra_classes='me-1 pink-heart' %} <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
                         </a>
                     </div>
                 {% endif %}

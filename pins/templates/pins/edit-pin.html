@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load bootstrap_icons %}
 
 <!-- Main -->
 <main>
@@ -79,7 +80,7 @@
                                 </div>
                                 <div class="like ms-auto">
                                     <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                        <i class="bi bi-heart me-1"></i> <small>811</small>
+                                        {% bs_icon 'heart' extra_classes='me-1' %} <small>811</small>
                                     </a>
                                 </div>
                             </div>
