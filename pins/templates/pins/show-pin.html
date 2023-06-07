@@ -18,24 +18,24 @@
                             <h1 class="m-0 h2">{{ pin.title }}</h1>
                             <div class="pd-heading-right d-flex">
                                 <button class="wishlist-btn"><i class="bi bi-heart"></i></button>
+
+                                {% if pin.creator.pk == request.user.pk %}
                                 <div class="dropdown">
                                     <button class="bid-btn dropdown-toggle" type="button"
                                         data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="bi bi-three-dots"></i>
                                     </button>
+
                                     <ul class="dropdown-menu dropdown-menu-end">
                                         <li><a class="dropdown-item" href="{% url 'pins:edit_pin' pin.pk %}">Edit pin</a></li>
-                                        <li><a class="dropdown-item" href="#">New bid</a></li>
-                                        <li><a class="dropdown-item" href="#">Buy now</a></li>
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li><a class="dropdown-item" href="#">View on OpenSea</a></li>
-                                        <li><a class="dropdown-item" href="#">Refresh Metadata</a></li>
-                                        <li><a class="dropdown-item" href="#">Share</a></li>
-                                        <li><a class="dropdown-item" href="#">Report</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'pins:delete_pin' pin.pk %}">Delete</a></li>
+{#                                        <li>#}
+{#                                            <hr class="dropdown-divider">#}
+{#                                        </li>#}
                                     </ul>
                                 </div>
+                                {% endif %}
+
                             </div>
                         </div>
                         <div class="pt-2 pd-meta">
@@ -52,15 +52,18 @@
                         <div class="pd-users pt-3">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <h6 class="opacity-8">{{ pin.creator.username }}</h6>
+                                    <h6 class="opacity-8">Creator</h6>
                                     <div class="d-flex align-items-center position-relative">
                                         <div class="avatar">
                                             <img class="avatar-img rounded-circle"
                                                 src="{{ pin.creator.avatar.url }}" title="" alt="">
                                         </div>
                                         <div class="col ps-3">
-                                            <h6 class="m-0"><a class="text-reset stretched-link"
-                                                    href="#">0x41025f8b8...9eea</a></h6>
+                                            <h6 class="m-0">
+                                                <a class="text-reset stretched-link"
+                                                    href="{% url 'users:profile' 'a' pin.creator.pk %}">{{ pin.creator.username }}
+                                                </a>
+                                            </h6>
                                         </div>
                                     </div>
                                 </div>
@@ -368,75 +371,62 @@
         </div>
     </section>
     <!-- End Section -->
+
+    {% if creator_pins %}
     <!-- Section -->
     <section class="section border-top border-gray-100">
         <div class="container">
             <div class="row justify-content-center section-heading">
                 <div class="col-lg-5 text-center">
-                    <h6 class="text-uppercase text-gradient d-inline-block">collections</h6>
-                    <h3 class="h1 m-0"><span class="fw-400">Live </span> Auctions </h3>
+                    <h6 class="text-uppercase text-gradient d-inline-block">more pins</h6>
+                    <h3 class="h1 m-0"><span class="fw-400">from </span> Author </h3>
                 </div>
             </div>
-            <div class="owl-carousel" data-items="4" data-nav-dots="true" data-lg-items="3" data-md-items="2"
-                data-sm-items="2" data-xs-items="1.5" data-space="30">
+            <div class="owl-carousel" data-items="{% if creator_pins.count < 4 %} {{ creator_pins.count }} {% else %} 4 {% endif %}" data-nav-dots="true" data-lg-items="{% if creator_pins.count < 3 %} {{ creator_pins.count }} {% else %} 3 {% endif %}" data-md-items="{% if creator_pins.count < 2 %} {{ creator_pins.count }} {% else %} 2 {% endif %}"
+                data-sm-items="{% if creator_pins.count < 2 %} {{ creator_pins.count }} {% else %} 2 {% endif %}" data-xs-items="{% if creator_pins.count < 1.5 %} {{ creator_pins.count }} {% else %} 1.5 {% endif %}" data-space="30">
+
+            {% for pin in creator_pins %}
+
                 <div class="product-card mb-4">
                     <div class="product-card-user mb-3">
                         <div class="avatar-group">
                             <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Martin">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-1.jpg"
+                                <a href="{% url 'users:profile' 'a' pin.creator.pk %}" data-bs-toggle="tooltip" data-bs-original-title="{{ pin.creator.username }}">
+                                    <img class="avatar-img rounded-circle" src="{{ pin.creator.avatar.url }}"
                                         title="" alt="">
                                     <div class="avatar-status text-primary border-0">
                                         <i class="bi bi-check-circle-fill"></i>
                                     </div>
                                 </a>
                             </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Larisa">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-2.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-3.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew"
-                                    class="avatar-text rounded-circle bg-primary text-white">
-                                    + 5
-                                </a>
-                            </div>
+
                         </div>
+                        {% if pin.creator.pk == request.user.pk %}
                         <div class="dropdown">
-                            <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="bi bi-three-dots-vertical"></i>
                             </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">New bid</a></li>
-                                <li><a class="dropdown-item" href="#">Buy now</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">View on OpenSea</a></li>
-                                <li><a class="dropdown-item" href="#">Refresh Metadata</a></li>
-                                <li><a class="dropdown-item" href="#">Share</a></li>
-                                <li><a class="dropdown-item" href="#">Report</a></li>
-                            </ul>
+
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="{% url 'pins:edit_pin' pin.pk %}">Edit pin</a></li>
+                                    <li><a class="dropdown-item" href="{% url 'pins:delete_pin' pin.pk %}">Delete</a></li>
+            {#                        <li>#}
+            {#                            <hr class="dropdown-divider">#}
+            {#                        </li>#}
+                                </ul>
                         </div>
+                        {% endif %}
+
                     </div>
                     <div class="product-card-img-box">
-                        <a href="#">
-                            <img class="product-card-img" src="../../assets/img/product-9.jpg" title="" alt="">
+                        <a href="{% url 'pins:show_pin' 'a' pin.pk %}">
+                            <img class="product-card-img" src="{{ pin.image.url }}" title="" alt="">
                         </a>
                     </div>
                     <div class="product-card-body">
                         <div class="product-title mb-3">
                             <h6 class="m-0">
-                                <a class="text-reset stretched-linka" href="#">Space Shapes #3</a>
+                                <a class="text-reset stretched-linka" href="{% url 'pins:show_pin' 'a' pin.pk %}">{{ pin.title }}</a>
                             </h6>
                             <span class="small">Highest bid 5/11</span>
                         </div>
@@ -453,380 +443,14 @@
                         </div>
                     </div>
                 </div>
-                <div class="product-card mb-4">
-                    <div class="product-card-user mb-3">
-                        <div class="avatar-group">
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Martin">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-1.jpg"
-                                        title="" alt="">
-                                    <div class="avatar-status text-primary border-0">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Larisa">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-2.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-3.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew"
-                                    class="avatar-text rounded-circle bg-primary text-white">
-                                    + 5
-                                </a>
-                            </div>
-                        </div>
-                        <div class="dropdown">
-                            <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">New bid</a></li>
-                                <li><a class="dropdown-item" href="#">Buy now</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">View on OpenSea</a></li>
-                                <li><a class="dropdown-item" href="#">Refresh Metadata</a></li>
-                                <li><a class="dropdown-item" href="#">Share</a></li>
-                                <li><a class="dropdown-item" href="#">Report</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product-card-img-box">
-                        <a href="#">
-                            <img class="product-card-img" src="../../assets/img/product-10.jpg" title="" alt="">
-                        </a>
-                    </div>
-                    <div class="product-card-body">
-                        <div class="product-title mb-3">
-                            <h6 class="m-0">
-                                <a class="text-reset stretched-linka" href="#">Space Shapes #3</a>
-                            </h6>
-                            <span class="small">Highest bid 5/11</span>
-                        </div>
-                        <div class="product-actions d-flex align-items-end">
-                            <div class="price">
-                                <h6 class="m-0">3.99 ETH <span class="text-body fw-400">1/1</span> </h6>
-                                <a class="link-primary small fw-600" href="#">Buy Now</a>
-                            </div>
-                            <div class="like ms-auto">
-                                <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                    <i class="bi bi-heart me-1"></i> <small>811</small>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card mb-4">
-                    <div class="product-card-user mb-3">
-                        <div class="avatar-group">
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Martin">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-1.jpg"
-                                        title="" alt="">
-                                    <div class="avatar-status text-primary border-0">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Larisa">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-2.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-3.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew"
-                                    class="avatar-text rounded-circle bg-primary text-white">
-                                    + 5
-                                </a>
-                            </div>
-                        </div>
-                        <div class="dropdown">
-                            <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">New bid</a></li>
-                                <li><a class="dropdown-item" href="#">Buy now</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">View on OpenSea</a></li>
-                                <li><a class="dropdown-item" href="#">Refresh Metadata</a></li>
-                                <li><a class="dropdown-item" href="#">Share</a></li>
-                                <li><a class="dropdown-item" href="#">Report</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product-card-img-box">
-                        <a href="#">
-                            <img class="product-card-img" src="../../assets/img/product-11.jpg" title="" alt="">
-                        </a>
-                    </div>
-                    <div class="product-card-body">
-                        <div class="product-title mb-3">
-                            <h6 class="m-0">
-                                <a class="text-reset stretched-linka" href="#">Space Shapes #3</a>
-                            </h6>
-                            <span class="small">Highest bid 5/11</span>
-                        </div>
-                        <div class="product-actions d-flex align-items-end">
-                            <div class="price">
-                                <h6 class="m-0">3.99 ETH <span class="text-body fw-400">1/1</span> </h6>
-                                <a class="link-primary small fw-600" href="#">Buy Now</a>
-                            </div>
-                            <div class="like ms-auto">
-                                <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                    <i class="bi bi-heart me-1"></i> <small>811</small>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card mb-4">
-                    <div class="product-card-user mb-3">
-                        <div class="avatar-group">
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Martin">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-1.jpg"
-                                        title="" alt="">
-                                    <div class="avatar-status text-primary border-0">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Larisa">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-2.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-3.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew"
-                                    class="avatar-text rounded-circle bg-primary text-white">
-                                    + 5
-                                </a>
-                            </div>
-                        </div>
-                        <div class="dropdown">
-                            <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">New bid</a></li>
-                                <li><a class="dropdown-item" href="#">Buy now</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">View on OpenSea</a></li>
-                                <li><a class="dropdown-item" href="#">Refresh Metadata</a></li>
-                                <li><a class="dropdown-item" href="#">Share</a></li>
-                                <li><a class="dropdown-item" href="#">Report</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product-card-img-box">
-                        <a href="#">
-                            <img class="product-card-img" src="../../assets/img/product-9.jpg" title="" alt="">
-                        </a>
-                    </div>
-                    <div class="product-card-body">
-                        <div class="product-title mb-3">
-                            <h6 class="m-0">
-                                <a class="text-reset stretched-linka" href="#">Space Shapes #3</a>
-                            </h6>
-                            <span class="small">Highest bid 5/11</span>
-                        </div>
-                        <div class="product-actions d-flex align-items-end">
-                            <div class="price">
-                                <h6 class="m-0">3.99 ETH <span class="text-body fw-400">1/1</span> </h6>
-                                <a class="link-primary small fw-600" href="#">Buy Now</a>
-                            </div>
-                            <div class="like ms-auto">
-                                <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                    <i class="bi bi-heart me-1"></i> <small>811</small>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card mb-4">
-                    <div class="product-card-user mb-3">
-                        <div class="avatar-group">
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Martin">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-1.jpg"
-                                        title="" alt="">
-                                    <div class="avatar-status text-primary border-0">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Larisa">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-2.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-3.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew"
-                                    class="avatar-text rounded-circle bg-primary text-white">
-                                    + 5
-                                </a>
-                            </div>
-                        </div>
-                        <div class="dropdown">
-                            <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">New bid</a></li>
-                                <li><a class="dropdown-item" href="#">Buy now</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">View on OpenSea</a></li>
-                                <li><a class="dropdown-item" href="#">Refresh Metadata</a></li>
-                                <li><a class="dropdown-item" href="#">Share</a></li>
-                                <li><a class="dropdown-item" href="#">Report</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product-card-img-box">
-                        <a href="#">
-                            <img class="product-card-img" src="../../assets/img/product-12.jpg" title="" alt="">
-                        </a>
-                    </div>
-                    <div class="product-card-body">
-                        <div class="product-title mb-3">
-                            <h6 class="m-0">
-                                <a class="text-reset stretched-linka" href="#">Space Shapes #3</a>
-                            </h6>
-                            <span class="small">Highest bid 5/11</span>
-                        </div>
-                        <div class="product-actions d-flex align-items-end">
-                            <div class="price">
-                                <h6 class="m-0">3.99 ETH <span class="text-body fw-400">1/1</span> </h6>
-                                <a class="link-primary small fw-600" href="#">Buy Now</a>
-                            </div>
-                            <div class="like ms-auto">
-                                <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                    <i class="bi bi-heart me-1"></i> <small>811</small>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card mb-4">
-                    <div class="product-card-user mb-3">
-                        <div class="avatar-group">
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Martin">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-1.jpg"
-                                        title="" alt="">
-                                    <div class="avatar-status text-primary border-0">
-                                        <i class="bi bi-check-circle-fill"></i>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Larisa">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-2.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew">
-                                    <img class="avatar-img rounded-circle" src="../../assets/img/avatar-3.jpg"
-                                        title="" alt="">
-                                </a>
-                            </div>
-                            <div class="avatar avatar-xs">
-                                <a href="#" data-bs-toggle="tooltip" data-bs-original-title="Nancy Drew"
-                                    class="avatar-text rounded-circle bg-primary text-white">
-                                    + 5
-                                </a>
-                            </div>
-                        </div>
-                        <div class="dropdown">
-                            <button class="bid-btn avatar avatar-xs dropdown-toggle" type="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="bi bi-three-dots-vertical"></i>
-                            </button>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">New bid</a></li>
-                                <li><a class="dropdown-item" href="#">Buy now</a></li>
-                                <li>
-                                    <hr class="dropdown-divider">
-                                </li>
-                                <li><a class="dropdown-item" href="#">View on OpenSea</a></li>
-                                <li><a class="dropdown-item" href="#">Refresh Metadata</a></li>
-                                <li><a class="dropdown-item" href="#">Share</a></li>
-                                <li><a class="dropdown-item" href="#">Report</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="product-card-img-box">
-                        <a href="#">
-                            <img class="product-card-img" src="../../assets/img/product-13.jpg" title="" alt="">
-                        </a>
-                    </div>
-                    <div class="product-card-body">
-                        <div class="product-title mb-3">
-                            <h6 class="m-0">
-                                <a class="text-reset stretched-linka" href="#">Space Shapes #3</a>
-                            </h6>
-                            <span class="small">Highest bid 5/11</span>
-                        </div>
-                        <div class="product-actions d-flex align-items-end">
-                            <div class="price">
-                                <h6 class="m-0">3.99 ETH <span class="text-body fw-400">1/1</span> </h6>
-                                <a class="link-primary small fw-600" href="#">Buy Now</a>
-                            </div>
-                            <div class="like ms-auto">
-                                <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                    <i class="bi bi-heart me-1"></i> <small>811</small>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            {% endfor %}
+
             </div>
         </div>
     </section>
     <!-- End Section -->
+    {% endif %}
+
 </main>
 <!-- End Main -->
 
