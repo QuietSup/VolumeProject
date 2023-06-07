@@ -20,7 +20,7 @@
     <link rel="shortcut icon" href="{% static 'favicon.ico' %}">
     <!-- CSS -->
 
-    <link rel="stylesheet" href="{% static 'vendor/bootstrap/icons/bootstrap-icons.css' %}">
+{#    <link rel="stylesheet" href="{% static 'vendor/bootstrap/icons/bootstrap-icons.css' %}">#}
     <link rel="stylesheet" href="{% static 'vendor/fontawesome/css/all.min.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/magnific/magnific-popup.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/owl-carousel/css/owl.carousel.min.css' %}">
@@ -308,6 +308,72 @@
     <script src="{% static 'vendor/mail/js/script.js'%}"></script>
     <!-- Theme Js -->
     <script src="{% static 'js/custom.js'%}"></script>
+<script>
+    function handleSortChange(selectElement) {
+        var selectedOption = selectElement.options[selectElement.selectedIndex];
+        var sortValue = selectedOption.value;
+
+        console.log("Selected sort value:", sortValue);
+
+        var url = '/pins/explore?sort=' + sortValue;
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: function (response) {
+                window.location.href = url;
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+
+    function addLike(pinId) {
+        var url = '/pins/pin/' + pinId + '/like/';
+        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            },
+            success: function (response) {
+                var likeCountElement = $('#like-count-' + pinId);
+                var newLikeCount = parseInt(likeCountElement.text()) + 1;
+                likeCountElement.text(newLikeCount);
+                $('#likeButton-' + pinId).attr('onclick', 'oddLike(' + pinId + ')');
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+
+    function oddLike(pinId) {
+        var url = '/pins/pin/' + pinId + '/unlike/';
+        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('X-CSRFToken', csrftoken);
+            },
+            success: function (response) {
+                var likeCountElement = $('#like-count-' + pinId);
+                var newLikeCount = parseInt(likeCountElement.text()) - 1;
+                likeCountElement.text(newLikeCount);
+                $('#likeButton-' + pinId).attr('onclick', 'addLike(' + pinId + ')');
+            },
+            error: function (xhr, status, error) {
+                console.error("Error:", error);
+            }
+        });
+    }
+</script>
+
 </body>
 <!-- end body -->
 

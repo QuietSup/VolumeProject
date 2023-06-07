@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
 <!-- Main -->
 <main>
@@ -15,89 +16,47 @@
     <section class="section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-4">
+
+                <form class="col-lg-3 col-md-4" action="{% url 'pins:explore' %}" method="get">
                     <div class="card">
                         <div class="card-header">
                             <h6 class="m-0">Explore Filter</h6>
                         </div>
+
                         <div class="card-body">
                             <div class="mb-3">
                                 <label class="form-label">Sort by</label>
-                                <select class="px-nice-select" onchange="handleSortChange(this)">
+                                <select name="sort" class="px-nice-select">
                                     <option data-display="Sort by">Sort by</option>
-                                    <option value="justAdded">Recently added</option>
-                                    <option value="lowToHigh">Price: Low to High</option>
-                                    <option value="highToLow">Price: High to Low</option>
-                                    <option value="4">Auction ending soon</option>
+                                    {% for key, value in sort_by.items %}
+                                    <option value="{{ value }}">{{ key }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
+
                             <div class="mb-3">
-                                <label class="form-label">LIKES</label>
-                                <select class="px-nice-select" onchange="handleSortChange(this)">
-                                    <option data-display="All">All</option>
-                                    <option value="mostLiked">Most liked</option>
-                                    <option value="leastLike">Least liked</option>
+                                <label class="form-label">When created</label>
+                                <select name="when_created" class="px-nice-select">
+                                    <option data-display="When created">When created</option>
+                                    {% for key, value in when_created.items %}
+                                    <option value="{{ key }}">{{ value }}</option>
+                                    {% endfor %}
                                 </select>
+
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Category</label>
-                                <select class="px-nice-select">
-                                    <option data-display="All Category">All Category</option>
-                                    <option value="1">Art</option>
-                                    <option value="1">Photograph</option>
-                                    <option value="2">Metaverses</option>
-                                    <option value="4">Potato</option>
-                                    <option value="4">Photos</option>
-                                </select>
+                            <div class="col-12 pt-3 mb-3">
+                                <button class="btn btn-primary w-100 btn-sm" type="submit">Submit</button>
                             </div>
-                            <div class="mb-3">
-                                <label class="form-label">Collections</label>
-                                <select class="px-nice-select">
-                                    <option data-display="All Collections">All Collections</option>
-                                    <option value="1">MutantApeYachtClub</option>
-                                    <option value="2">BoredApeYachtClub</option>
-                                    <option value="4">RTFKT - CloneX Mintvial</option>
-                                    <option value="5">Town Star</option>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Sale type</label>
-                                <select class="px-nice-select">
-                                    <option data-display="Sale type">Sale type</option>
-                                    <option value="1">Timed auction</option>
-                                    <option value="1">Fixed price</option>
-                                    <option value="1">Not for sale</option>
-                                    <option value="1">Open for offers</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="form-label">Price range</label>
-                                <select class="px-nice-select">
-                                    <option data-display="ETH">ETH</option>
-                                    <option value="1">WETH</option>
-                                    <option value="1">FLOW</option>
-                                    <option value="1">FUSD</option>
-                                    <option value="1">XTZ</option>
-                                </select>
-                                <div class="row pt-3">
-                                    <div class="col">
-                                        <input type="text" class="form-control" placeholder="From" name="low">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" class="form-control" placeholder="To" name="high">
-                                    </div>
-                                    <div class="col-12 pt-3">
-                                        <button class="btn btn-primary w-100 btn-sm">Apply Price</button>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
                     </div>
-                </div>
+                </form>
+
+
                 <div class="col-lg-9 col-md-8 mt-5 mt-lg-0">
 
                     <div class="row gy-4">
-                {% for pin in pins %}
+                {% for pin in page_obj %}
                     {% include 'pins/explore-pin-tile.html' %}
                 {% empty %}
                     <h1>Nothing found</h1>
@@ -105,11 +64,40 @@
                     </div>
                     <div class="pt-7">
                         <ul class="pagination justify-content-center m-0">
-                            <li class="page-item "><a class="page-link" href="#">Previous</a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+
+                            {% if page_obj.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page=1" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                    <span class="sr-only">begin</span>
+                                </a>
+                            </li>
+                            {% endif %}
+
+                            {% for n in page_obj.paginator.page_range %}
+                                {% if page_obj.number == n %}
+                                    <li class="page-item active">
+                                        <span class="page-link">{{ n }}<span class="sr-only">(current)</span></span>
+                                    </li>
+                                {% elif n > page_obj.number|add:'-3' and n < page_obj.number|add:'3' %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ n }}">{{ n }}</a></li>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                    <span class="sr-only">end</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+
+{#                            <li class="page-item "><a class="page-link" href="#">Previous</a></li>#}
+{#                            <li class="page-item active"><a class="page-link" href="#">1</a></li>#}
+{#                            <li class="page-item"><a class="page-link" href="#">2</a></li>#}
+{#                            <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+{#                            <li class="page-item"><a class="page-link" href="#">Next</a></li>#}
                         </ul>
                     </div>
                 </div>
@@ -119,69 +107,4 @@
     <!-- End Section -->
 </main>
 <!-- End Main -->
-<script>
-    function handleSortChange(selectElement) {
-        var selectedOption = selectElement.options[selectElement.selectedIndex];
-        var sortValue = selectedOption.value;
-
-        console.log("Selected sort value:", sortValue);
-
-        var url = 'http://127.0.0.1:8000/pins/explore?sort=' + sortValue;
-
-        $.ajax({
-            url: url,
-            type: 'GET',
-            success: function (response) {
-                window.location.href = url;
-            },
-            error: function (xhr, status, error) {
-                console.error("Error:", error);
-            }
-        });
-    }
-
-    function addLike(pinId) {
-        var url = '/pins/pin/' + pinId + '/like/';
-        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-CSRFToken', csrftoken);
-            },
-            success: function (response) {
-                var likeCountElement = $('#like-count-' + pinId);
-                var newLikeCount = parseInt(likeCountElement.text()) + 1;
-                likeCountElement.text(newLikeCount);
-                $('#likeButton-' + pinId).attr('onclick', 'oddLike(' + pinId + ')');
-            },
-            error: function (xhr, status, error) {
-                console.error("Error:", error);
-            }
-        });
-    }
-
-    function oddLike(pinId) {
-        var url = '/pins/pin/' + pinId + '/unlike/';
-        var csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
-
-        $.ajax({
-            url: url,
-            type: 'POST',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader('X-CSRFToken', csrftoken);
-            },
-            success: function (response) {
-                var likeCountElement = $('#like-count-' + pinId);
-                var newLikeCount = parseInt(likeCountElement.text()) - 1;
-                likeCountElement.text(newLikeCount);
-                $('#likeButton-' + pinId).attr('onclick', 'addLike(' + pinId + ')');
-            },
-            error: function (xhr, status, error) {
-                console.error("Error:", error);
-            }
-        });
-    }
-</script>
 {% endblock %}

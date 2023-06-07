@@ -12,19 +12,22 @@
                 <h6 class="m-0">
                     <a class="text-reset stretched-linka" href="#">{{ pin.title }}</a>
                 </h6>
-                <span class="small">Highest bid 5/11</span>
+                <span class="small">{{ pin.description|truncatechars:100 }}</span>
             </div>
             <div class="product-actions d-flex align-items-end">
-                <div class="price">
-                    <h6 class="m-0">3.99 ETH <span
-                            class="text-body fw-400">1/1</span> </h6>
-                    <a class="link-primary small fw-600" href="#">Buy Now</a>
-                </div>
-                <div class="like ms-auto">
-                    <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                        {% bs_icon 'heart' extra_classes='me-1' %} <small>811</small>
-                    </a>
-                </div>
+                {% if request.user in pin.liked_users.all %}
+                    <div class="like ms-auto">
+                        <a href="#" class="d-flex lh-1 fw-500 text-reset" id="likeButton-{{ pin.id }}" onclick="oddLike({{ pin.id }})">
+                            {% bs_icon 'heart' extra_classes='me-1 pink-heart' color='pink' %} <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
+                        </a>
+                    </div>
+                {% else %}
+                    <div class="like ms-auto">
+                        <a href="#" class="d-flex lh-1 fw-500 text-reset" id="likeButton-{{ pin.id }}" onclick="addLike({{ pin.id }})">
+                            {% bs_icon 'heart' extra_classes='me-1 pink-heart' %} <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
+                        </a>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </div>

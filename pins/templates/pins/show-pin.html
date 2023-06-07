@@ -17,7 +17,17 @@
                         <div class="pd-heading">
                             <h1 class="m-0 h2">{{ pin.title }}</h1>
                             <div class="pd-heading-right d-flex">
-                                <button class="wishlist-btn">{% bs_icon 'heart' %}</button>
+
+                                {% if request.user in pin.liked_users.all %}
+                                <a href="#" class="wishlist-btn" id="likeButton-{{ pin.id }}" onclick="oddLike({{ pin.id }})">
+                                            {% bs_icon 'heart' color='pink' %}
+                                </a>
+
+                                {% else %}
+                                <a href="#" class="wishlist-btn" id="likeButton-{{ pin.id }}" onclick="addLike({{ pin.id }})">
+                                            {% bs_icon 'heart' %}
+                                </a>
+                                {% endif %}
 
                                 {% if pin.creator.pk == request.user.pk %}
                                 <div class="dropdown">
@@ -68,7 +78,7 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <h6 class="opacity-8">Collection</h6>
+                                    <h6 class="opacity-8">First like</h6>
                                     <div class="d-flex align-items-center position-relative">
                                         <div class="avatar">
                                             <img class="avatar-img rounded-circle"
@@ -77,266 +87,6 @@
                                         <div class="col ps-3">
                                             <h6 class="m-0"><a class="text-reset stretched-link" href="#">Prime
                                                     Ape Planet</a></h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pd-tabs my-5">
-                            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link active" id="pd-owners-tab" data-bs-toggle="tab"
-                                        data-bs-target="#pd-owners" type="button" role="tab"
-                                        aria-controls="pd-owners" aria-selected="true">Owners</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pd-bids-tab" data-bs-toggle="tab"
-                                        data-bs-target="#pd-bids" type="button" role="tab"
-                                        aria-controls="pd-bids" aria-selected="false">Bids</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pd-details-tab" data-bs-toggle="tab"
-                                        data-bs-target="#pd-details" type="button" role="tab"
-                                        aria-controls="pd-details" aria-selected="true">Details</button>
-                                </li>
-                                <li class="nav-item" role="presentation">
-                                    <button class="nav-link" id="pd-history-tab" data-bs-toggle="tab"
-                                        data-bs-target="#pd-history" type="button" role="tab"
-                                        aria-controls="pd-history" aria-selected="false">History</button>
-                                </li>
-                            </ul>
-                            <div class="tab-content" id="myTabContent">
-                                <div class="tab-pane fade show active" id="pd-owners" role="tabpanel"
-                                    aria-labelledby="pd-owners-tab">
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-1.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <h6 class="m-0"><a class="text-reset stretched-link"
-                                                    href="#">0x41025f8b8...9eea</a></h6>
-                                            <span class="small">1 edition <span class="text-mode">not for
-                                                    sale</span></span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-2.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <h6 class="m-0"><a class="text-reset stretched-link"
-                                                    href="#">0x41025f8b8...9eea</a></h6>
-                                            <span class="small">1 edition <span class="text-mode">not for
-                                                    sale</span></span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-3.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <h6 class="m-0"><a class="text-reset stretched-link"
-                                                    href="#">0x41025f8b8...9eea</a></h6>
-                                            <span class="small">1 edition <span class="text-mode">not for
-                                                    sale</span></span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-4.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <h6 class="m-0"><a class="text-reset stretched-link"
-                                                    href="#">0x41025f8b8...9eea</a></h6>
-                                            <span class="small">1 edition <span class="text-mode">not for
-                                                    sale</span></span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-5.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <h6 class="m-0"><a class="text-reset stretched-link"
-                                                    href="#">0x41025f8b8...9eea</a></h6>
-                                            <span class="small">1 edition <span class="text-mode">not for
-                                                    sale</span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="pd-bids" role="tabpanel"
-                                    aria-labelledby="pd-bids-tab">
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-6.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <p class="m-0"><span class="text-mode fw-500">1.8 WETH</span> by <a
-                                                    href="#" class="text-mode fw-500">xxuser_00</a> for 1
-                                                edition</p>
-                                            <span>4 hours ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-7.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <p class="m-0"><span class="text-mode fw-500">1.8 WETH</span> by <a
-                                                    href="#" class="text-mode fw-500">xxuser_00</a> for 1
-                                                edition</p>
-                                            <span>4 hours ago</span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-8.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <p class="m-0"><span class="text-mode fw-500">1.8 WETH</span> by <a
-                                                    href="#" class="text-mode fw-500">xxuser_00</a> for 1
-                                                edition</p>
-                                            <span>4 hours ago</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="pd-details" role="tabpanel"
-                                    aria-labelledby="pd-details-tab">
-                                    <div class="pb-4">
-                                        <h6 class="opacity-9 fw-500 mb-3">Category</h6>
-                                        <div class="row g-2">
-                                            <div class="col-auto">
-                                                <a class="px-3 py-1 small rounded bg-primary text-white d-block rounded-pill"
-                                                    href="#">
-                                                    {% bs_icon 'rainbow' extra_classes='me-1' %} Art
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pb-4">
-                                        <h6 class="opacity-9 fw-500 mb-3">Properties</h6>
-                                        <div class="row g-2">
-                                            <div class="col-auto">
-                                                <a class="border border-gray-200 px-3 py-2 small rounded text-reset d-block"
-                                                    href="#">
-                                                    <h6 class="text-secondary mb-1 small">Block</h6>
-                                                    <div class="text-mode m-0 lh-sm">Data</div>
-                                                    <span class="small">1.8% rarity</span>
-                                                </a>
-                                            </div>
-                                            <div class="col-auto">
-                                                <a class="border border-gray-200 px-3 py-2 small rounded text-reset d-block"
-                                                    href="#">
-                                                    <h6 class="text-secondary mb-1 small">Generation</h6>
-                                                    <div class="text-mode m-0 lh-sm">Genesis</div>
-                                                    <span class="small">0.6% rarity</span>
-                                                </a>
-                                            </div>
-                                            <div class="col-auto">
-                                                <a class="border border-gray-200 px-3 py-2 small rounded text-reset d-block"
-                                                    href="#">
-                                                    <h6 class="text-secondary mb-1 small">Series</h6>
-                                                    <div class="text-mode m-0 lh-sm">Series One</div>
-                                                    <span class="small">0.6% rarity</span>
-                                                </a>
-                                            </div>
-                                            <div class="col-auto">
-                                                <a class="border border-gray-200 px-3 py-2 small rounded text-reset d-block"
-                                                    href="#">
-                                                    <h6 class="text-secondary mb-1 small">Tier</h6>
-                                                    <div class="text-mode m-0 lh-sm">Pnk Undrwarld Wingz</div>
-                                                    <span class="small">0.6% rarity</span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="pb-4">
-                                        <h6 class="opacity-9 fw-500 mb-3">Blockchain</h6>
-                                        <div class="d-flex align-items-center position-relative">
-                                            <div class="avatar">
-                                                <img title="" alt="" class="avatar-img rounded-circle"
-                                                    src="../../assets/img/avatar-9.jpg">
-                                            </div>
-                                            <div class="col ps-3">
-                                                <h6 class="m-0"><a class="text-reset stretched-link"
-                                                        href="#">0x41025f8b8...9eea</a></h6>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="pd-history" role="tabpanel"
-                                    aria-labelledby="pd-history-tab">
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-1.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <p class="m-0">Bid cancelled by <a class="text-mode"
-                                                    href="#">0x41025f8b8...9eea</a></p>
-                                            <span class="small">1 hours ago <a class="text-mode ms-1"
-                                                    href="#">{% bs_icon 'box-arrow-up-right' %}</a>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-2.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <p class="m-0">Bid cancelled by <a class="text-mode"
-                                                    href="#">0x41025f8b8...9eea</a></p>
-                                            <span class="small">1 hours ago <a class="text-mode ms-1"
-                                                    href="#">{% bs_icon 'box-arrow-up-right' %}</a>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-3.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <p class="m-0">Minted by <a class="text-mode"
-                                                    href="#">0x41025f8b8...9eea</a></p>
-                                            <span class="small">1 hours ago <a class="text-mode ms-1"
-                                                    href="#"><i class="bi bi-box-arrow-up-right"></i></a>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-4.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <p class="m-0">Unlisted by <a class="text-mode"
-                                                    href="#">0x41025f8b8...9eea</a></p>
-                                            <span class="small">1 hours ago <a class="text-mode ms-1"
-                                                    href="#">{% bs_icon 'box-arrow-up-right' %}</a>
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="d-flex align-items-center position-relative mb-3">
-                                        <div class="avatar">
-                                            <img title="" alt="" class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-6.jpg">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <p class="m-0">Listed 1 edition for <a class="text-mode"
-                                                    href="#">0x41025f8b8...9eea</a></p>
-                                            <span class="small">1 hours ago <a class="text-mode ms-1"
-                                                    href="#">{% bs_icon 'box-arrow-up-right' %}</a>
-                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -428,18 +178,23 @@
                             <h6 class="m-0">
                                 <a class="text-reset stretched-linka" href="{% url 'pins:show_pin' 'a' pin.pk %}">{{ pin.title }}</a>
                             </h6>
-                            <span class="small">Highest bid 5/11</span>
+                            <span class="small">{{ pin.description|truncatechars:100 }}</span>
                         </div>
                         <div class="product-actions d-flex align-items-end">
-                            <div class="price">
-                                <h6 class="m-0">3.99 ETH <span class="text-body fw-400">1/1</span> </h6>
-                                <a class="link-primary small fw-600" href="#">Buy Now</a>
-                            </div>
-                            <div class="like ms-auto">
-                                <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                    {% bs_icon 'heart' extra_classes='me-1' %} <small>811</small>
-                                </a>
-                            </div>
+
+                            {% if current_user in pin.liked_users.all %}
+                                <div class="like ms-auto">
+                                    <a href="#" class="d-flex lh-1 fw-500 text-reset" id="likeButton-{{ pin.id }}" onclick="oddLike({{ pin.id }})">
+                                        {% bs_icon 'heart' extra_classes='me-1 pink-heart' color='pink' %} <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
+                                    </a>
+                                </div>
+                            {% else %}
+                                <div class="like ms-auto">
+                                    <a href="#" class="d-flex lh-1 fw-500 text-reset" id="likeButton-{{ pin.id }}" onclick="addLike({{ pin.id }})">
+                                        {% bs_icon 'heart' extra_classes='me-1 pink-heart' %} <small id="like-count-{{ pin.id }}">{{pin.likes}}</small>
+                                    </a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -453,5 +208,4 @@
 
 </main>
 <!-- End Main -->
-
 {% endblock %}

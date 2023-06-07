@@ -40,12 +40,11 @@
                 <h6 class="m-0">
                     <a class="text-reset stretched-linka" href="#">{{pin.title}}</a>
                 </h6>
-                <span class="small">Highest bid 5/11</span>
+                <span class="small">{{ pin.description|truncatechars:100 }}</span>
             </div>
             <div class="product-actions d-flex align-items-end">
                 <div class="price">
-                    <h6 class="m-0">{{pin.price}} ETH <span class="text-body fw-400">1/1</span> </h6>
-                    <a class="link-primary small fw-600" href="#">Buy Now</a>
+                    <h6 class="m-0">by {{ pin.creator.username }}</h6>
                 </div>
                 {% if current_user in pin.liked_users.all %}
                     <div class="like ms-auto">
