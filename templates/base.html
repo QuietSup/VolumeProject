@@ -167,7 +167,7 @@
         <!-- End Main -->
           <!-- Footer-->
           <footer class="footer footer-bg">
-            <div class="py-7 py-md-8 py-lg-10">
+            <div class="py-1 py-md-2 py-lg-3">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3 my-3 me-auto">
@@ -175,59 +175,9 @@
                                 <img class="footer-logo-light" src="{% static 'light-logo.png' %}" title="" alt="">
                                 <img class="footer-logo-dark" src="{% static 'logo.png' %}" title="" alt="">
                             </div>
-                            <p>Crypto collectibles and non-fungible tokens (NFTs). Buy, sell, and discover exclusive digital items.</p>
+                            <p>Keep your ideas here <3</p>
                         </div>
-                        <div class="col-lg-3 col-sm-6 my-3">
-                            <h5 class="footer-title-01">Marketplace</h5>
-                            <ul class="list-unstyled footer-link-01 m-0">
-                                <li>
-                                    <a class="link-white" href="#">All NFTs</a>
-                                </li>
-                                <li>
-                                    <a class="link-white" href="#">New</a>
-                                </li>
-                                <li>
-                                    <a class="link-white" href="#">Collectibles</a>
-                                </li>
-                                <li>
-                                    <a class="link-white" href="#">Photography</a>
-                                </li>
-                                <li>
-                                    <a class="link-white" href="#">Trading Cards</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 my-3">
-                            <h5 class="footer-title-01">Resources</h5>
-                            <ul class="list-unstyled footer-link-01 m-0">
-                                <li>
-                                    <a class="link-white" href="#">Help Center</a>
-                                </li>
-                                <li>
-                                    <a class="link-white" href="#">Platform Status</a>
-                                </li>
-                                <li>
-                                    <a class="link-white" href="#">About Us</a>
-                                </li>
-                                <li>
-                                    <a class="link-white" href="#">Copyright</a>
-                                </li>
-                                <li>
-                                    <a class="link-white" href="#">Popular Campaign</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-3 col-sm-6 my-3">
-                            <h5 class="footer-title-01">Stay up to date</h5>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod.</p>
-                            <form>
-                                <div class="d-flex flex-row">
-                                    <input type="email" class="form-control me-2" placeholder="Enter your username">
-                                    <button class="btn btn-primary flex-shrink-0" type="submit"><i class="fas fa-envelope"></i></button>
-                                </div>
-                                <p class="m-0 mt-2 small">New UI kits or big discounts. Never spam.</p>
-                            </form>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -235,7 +185,7 @@
             <div class="container">
                 <div class="row py-3 gy-3 align-items-center">
                     <div class="col-md-12 text-center">
-                        <p class="text-white-85 small m-0">© 2022 Trewo is Powered by <a href="http://recocode.com/" target="_blank" class="text-reset">Recocode</a></p>
+                        <p class="text-white-85 small m-0">UI by <a href="http://recocode.com/" target="_blank" class="text-reset">Recocode</a></p>
                     </div>
                 </div>
             </div>
@@ -268,25 +218,6 @@
     <!-- Theme Js -->
     <script src="{% static 'js/custom.js'%}"></script>
 <script>
-    function handleSortChange(selectElement) {
-        var selectedOption = selectElement.options[selectElement.selectedIndex];
-        var sortValue = selectedOption.value;
-
-        console.log("Selected sort value:", sortValue);
-
-        var url = '/pins/explore?sort=' + sortValue;
-
-        $.ajax({
-            url: url,
-            type: 'GET',
-            success: function (response) {
-                window.location.href = url;
-            },
-            error: function (xhr, status, error) {
-                console.error("Error:", error);
-            }
-        });
-    }
 
     function addLike(pinId) {
         var url = '/pins/pin/' + pinId + '/like/';
