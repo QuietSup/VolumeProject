@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-x&&8q55+nka(*1*+d75*2*zr60g_cm2w7k*4%3$m(hd$4ef7-3'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 # DEBUG_PROPAGATE_EXCEPTIONS = True
 ALLOWED_HOSTS = ['*']
 
@@ -172,15 +172,13 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 # Google Cloud Storage
-# GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
-#     os.path.join(BASE_DIR, 'eastern-rider-389013-6a0d9898746e.json')
-# )
+GS_CREDENTIALS = service_account.Credentials.from_service_account_file(
+    os.path.join(BASE_DIR, 'eastern-rider-389013-6a0d9898746e.json')
+)
 
-# STORAGES = {
-#     "default": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"},
-#     "staticfiles": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"}
-# }
+STORAGES = {
+    "default": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"},
+    "staticfiles": {"BACKEND": "storages.backends.gcloud.GoogleCloudStorage"}
+}
 
-
-
-# GS_BUCKET_NAME = 'volume-project'
+GS_BUCKET_NAME = 'volume-project'
