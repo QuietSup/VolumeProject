@@ -191,7 +191,7 @@
                                 </div>
                                 <ul class="list-unstyled">
                                     <li>
-                                        <a href="{% url 'users:edit_profile' %}"><i class="bi bi-person"></i> My Account</a>
+                                        <a href="{% url 'users:profile' request.user.username request.user.pk %}"><i class="bi bi-person"></i> My Account</a>
                                     </li>
                                     <li>
                                         <a href="{% url 'users:edit_profile' %}"><i class="bi bi-gear"></i> My Setting</a>

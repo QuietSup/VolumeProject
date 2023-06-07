@@ -58,4 +58,4 @@ def profile(request, slug, user_id):
     if slugify(user.username) != slug:
         return redirect('users:profile', slug=slugify(user.username), user_id=user_id)
 
-    return render(request, 'users/profile.html', {'user': user})
+    return render(request, 'users/profile.html', {'user': user, 'pins': user.pin_set.all()})
