@@ -12,10 +12,10 @@ def explore(request):
     sort_by = {
         'Most_liked': '-likes',
         'Least liked': 'likes',
-        'Latest added': '-created_at',
-        'Earliest added': 'created_at',
-        'Latest updated': '-updated_at',
-        'Earliest updated': 'updated_at',
+        'Recently added': '-created_at',
+        'Earlier added': 'created_at',
+        'Recently updated': '-updated_at',
+        'Earlier updated': 'updated_at',
     }
 
     when_created = {
@@ -93,7 +93,7 @@ def show_pin(request, slug, pin_id):
     if slugify(pin.title) != slug:
         return redirect('pins:show_pin', slug=slugify(pin.title), pin_id=pin_id)
 
-    creator_pins = pin.creator.pin_set.order_by('created_at').exclude(pk=pin_id)[:6]
+    creator_pins = pin.creator.pin_set.order_by('created_at').exclude(pk=pin_id)[:3]
 
 
     return render(request, 'pins/show-pin.html', {'pin': pin, 'creator_pins': creator_pins})
