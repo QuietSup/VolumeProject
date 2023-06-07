@@ -72,10 +72,6 @@
                      <div class="collapse navbar-collapse ps-xl-5" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto">
 
-                            <a href="#" class="nav-link">About</a>
-
-                            <a href="#" class="nav-link">Blog</a>
-
                             <a href="{% url 'pins:explore' %}" class="nav-link">
                                 Explore <span class="h-menu-lable">HOT
                                     <span class="pulse"></span>
@@ -85,23 +81,6 @@
                             {% if request.user.is_authenticated %}
                                 <a href="{% url 'pins:create_pin' %}" class="nav-link">Create Pin</a>
                             {% endif %}
-
-                            <li class="nav-item dropdown">
-                                <a href="#" class="nav-link">Account</a>
-                                <label class="px-dropdown-toggle mob-menu bi bi-chevron-down"></label>
-                                <div class="dropdown-menu left">
-                                    <ul class="list-unstyled">
-                                        <li><a class="dropdown-item" href="{% url 'users:edit_profile' %}">Profile</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'users:edit_profile' %}">Edit Profile</a></li>
-                                        <li><a class="dropdown-item" href="#">Connect Wallet</a></li>
-                                        <li><a class="dropdown-item" href="#">Choose Blockchain</a></li>
-                                        <li><a class="dropdown-item" href="#">Add New Item</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'users:login' %}">Login</a></li>
-                                        <li><a class="dropdown-item" href="{% url 'users:signup' %}">Sign Up</a></li>
-                                        <li><a class="dropdown-item" href="#">Forget Password</a></li>
-                                    </ul>
-                                </div>
-                            </li>
 
                         </ul>
                     </div>
