@@ -61,7 +61,7 @@ def show_pin(request, slug, pin_id):
     pin = get_object_or_404(Pin, pk=pin_id)
 
     if slugify(pin.title) != slug:
-        return redirect('pins:show_pin', slug=slugify(pin.title), user_id=pin_id)
+        return redirect('pins:show_pin', slug=slugify(pin.title), pin_id=pin_id)
 
     return render(request, 'pins/show-pin.html', {'pin': pin})
 
