@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-x&&8q55+nka(*1*+d75*2*zr60g_cm2w7k*4%3$m(hd$4ef7-3
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
-DEBUG_PROPAGATE_EXCEPTIONS = True
+# DEBUG_PROPAGATE_EXCEPTIONS = True
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -156,7 +156,6 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
