@@ -15825,7 +15825,7 @@ body.body-bg-v2 .header-height:not(.fixed-header) {
 }
 .header-end .h-search {
   position: absolute;
-  width: 100%;
+  width: 40wv;
   top: 100%;
   right: 0;
 }
