@@ -13,11 +13,11 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
-/*@import url(../vendor/bootstrap/icons/bootstrap-icons.css);*/
-/*@import url(../vendor/fontawesome/css/all.min.css);*/
-/*@import url(../vendor/magnific/magnific-popup.css);*/
-/*@import url(../vendor/owl-carousel/css/owl.carousel.min.css);*/
-/*@import url(../vendor/nice-select/nice-select.css);*/
+@import url(../vendor/bootstrap/icons/bootstrap-icons.css);
+@import url(../vendor/fontawesome/css/all.min.css);
+@import url(../vendor/magnific/magnific-popup.css);
+@import url(../vendor/owl-carousel/css/owl.carousel.min.css);
+@import url(../vendor/nice-select/nice-select.css);
 :root {
   --bs-blue: #059dff;
   --bs-indigo: #6610f2;
