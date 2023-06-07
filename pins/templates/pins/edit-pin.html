@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- Main -->
+<main>
+    <!-- Section -->
+    <section class="py-5 py-lg-8 border-bottom border-gray-100">
+        <div class="container">
+            <div class="text-center">
+                <h1 class="m-0">Crete a New NFT</h1>
+            </div>
+        </div>
+    </section>
+    <!-- End Section -->
+    <!-- Section -->
+    <section class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <form action="{% url 'pins:edit_pin' pin_id %}" method="post" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        <h6>{{ form.image.label }}</h6>
+                        <div class="px-file-upload">
+                            {{ form.image }}
+                            <label for="px_file" title="No File Choosen">
+                                <i class="feather-upload"></i>
+
+                                    <span class="text-center d-inline-block w-100 mb-3">
+                                        {{ form.image.errors|default:'PNG, GIF, WEBP, MP4 or MP3. Max 100mb.' }}
+                                    </span>
+
+                                <span class="btn btn-primary-soft px-input-selected-file">Choose File</span>
+
+                            </label>
+                        </div>
+
+                        {% for field in form %}
+                            {% if not forloop.first %}
+
+                                <div class="py-3">
+                                    <h6>{{ field.label }}</h6>
+                                    {{ field }}
+
+                                    {% if field.errors %}
+                                        {{ field.errors }}
+                                    {% endif %}
+                                </div>
+
+                            {% endif %}
+                        {% endfor %}
+
+                        <div class="py-3">
+                            <button type="submit" class="w-100 btn btn-primary">Edit pin</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-4 mt-5 mt-lg-0">
+                    <h6>Preview</h6>
+                    <div class="product-card">
+                        <div class="product-card-img-box">
+                            <a href="#">
+                                <img class="product-card-img" src="../../assets/img/product-2.jpg" title=""
+                                    alt="">
+                            </a>
+                        </div>
+                        <div class="product-card-body">
+                            <div class="product-title mb-3">
+                                <h6 class="m-0">
+                                    <a class="text-reset stretched-linka" href="#">Space Shapes #3</a>
+                                </h6>
+                                <span class="small">Highest bid 5/11</span>
+                            </div>
+                            <div class="product-actions d-flex align-items-end">
+                                <div class="price">
+                                    <h6 class="m-0">3.99 ETH <span class="text-body fw-400">1/1</span> </h6>
+                                    <a class="link-primary small fw-600" href="#">Buy Now</a>
+                                </div>
+                                <div class="like ms-auto">
+                                    <a href="#" class="d-flex lh-1 fw-500 text-reset">
+                                        <i class="bi bi-heart me-1"></i> <small>811</small>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Section -->
+</main>
+<!-- End Main -->
+
+{% endblock %}
