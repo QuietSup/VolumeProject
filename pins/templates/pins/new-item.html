@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load bootstrap_icons %}
+    {% load static %}
 
 <!-- Main -->
 <main>
@@ -8,7 +9,7 @@
     <section class="py-5 py-lg-8 border-bottom border-gray-100">
         <div class="container">
             <div class="text-center">
-                <h1 class="m-0">Crete a New NFT</h1>
+                <h1 class="m-0">Crete a New Pin</h1>
             </div>
         </div>
     </section>
@@ -29,7 +30,7 @@
                                 <i class="feather-upload"></i>
 
                                     <span class="text-center d-inline-block w-100 mb-3">
-                                        {{ form.image.errors|default:'PNG, GIF, WEBP, MP4 or MP3. Max 100mb.' }}
+                                        {{ form.image.errors|default:'PNG, JPG' }}
                                     </span>
 
                                 <span class="btn btn-primary-soft px-input-selected-file">Choose File</span>
@@ -62,25 +63,24 @@
                     <div class="product-card">
                         <div class="product-card-img-box">
                             <a href="#">
-                                <img class="product-card-img" src="../../assets/img/product-2.jpg" title=""
+                                <img class="product-card-img" src="{% static 'pin.jpg' %}" title=""
                                     alt="">
                             </a>
                         </div>
                         <div class="product-card-body">
                             <div class="product-title mb-3">
                                 <h6 class="m-0">
-                                    <a class="text-reset stretched-linka" href="#">Space Shapes #3</a>
+                                    <a class="text-reset stretched-linka" href="#">Your title</a>
                                 </h6>
-                                <span class="small">Highest bid 5/11</span>
+                                <span class="small">Your description</span>
                             </div>
                             <div class="product-actions d-flex align-items-end">
                                 <div class="price">
-                                    <h6 class="m-0">3.99 ETH <span class="text-body fw-400">1/1</span> </h6>
-                                    <a class="link-primary small fw-600" href="#">Buy Now</a>
+                                    <h6 class="m-0">by {{ request.user.username }} </h6>
                                 </div>
                                 <div class="like ms-auto">
                                     <a href="#" class="d-flex lh-1 fw-500 text-reset">
-                                        {% bs_icon 'heart' extra_classes='me pink-heart' %} <small>811</small>
+                                        {% bs_icon 'heart' extra_classes='me-1 pink-heart' %} <small>9</small>
                                     </a>
                                 </div>
                             </div>

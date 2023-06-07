@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load bootstrap_icons %}
+    {% load static %}
 <!-- Main -->
 <main>
     <!-- Section -->
@@ -66,7 +67,7 @@
                                     <div class="d-flex align-items-center position-relative">
                                         <div class="avatar">
                                             <img class="avatar-img rounded-circle"
-                                                src="{{ pin.creator.avatar.url }}" title="" alt="">
+                                                src="{% if pin.creator.avatar %}{{ pin.creator.avatar.url }} {% else %} {% static 'img.jpg' %} {% endif %}" title="" alt="">
                                         </div>
                                         <div class="col ps-3">
                                             <h6 class="m-0">
@@ -77,44 +78,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <h6 class="opacity-8">First like</h6>
-                                    <div class="d-flex align-items-center position-relative">
-                                        <div class="avatar">
-                                            <img class="avatar-img rounded-circle"
-                                                src="../../assets/img/avatar-2.jpg" title="" alt="">
-                                        </div>
-                                        <div class="col ps-3">
-                                            <h6 class="m-0"><a class="text-reset stretched-link" href="#">Prime
-                                                    Ape Planet</a></h6>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
-                        <div class="border-top border-gray-200 pt-4">
-                            <div class="d-flex align-items-center position-relative">
-                                <div class="avatar">
-                                    <img title="" alt="" class="avatar-img rounded-circle"
-                                        src="../../assets/img/avatar-8.jpg">
-                                </div>
-                                <div class="col ps-3">
-                                    <h6 class="mb-2"><span class="text-body fw-400">Highest bid by</span> <a
-                                            class="text-reset stretched-link" href="#">0x41025f8b8...9eea</a>
-                                    </h6>
-                                    <h6 class="m-0 lead fw-500 text-primary">1.8 WETH <span
-                                            class="text-body">$6,365 for 1 edition</span> </h6>
-                                </div>
-                            </div>
-                            <div class="row g-2 pt-4">
-                                <div class="col-6">
-                                    <a class="btn btn-primary w-100" href="#">Place a Bid</a>
-                                </div>
-                                <div class="col-6">
-                                    <a class="btn btn-primary-soft w-100" href="#">Share</a>
-                                </div>
-                            </div>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -132,17 +99,16 @@
                     <h3 class="h1 m-0"><span class="fw-400">from </span> Author </h3>
                 </div>
             </div>
-            <div class="owl-carousel" data-items="{% if creator_pins.count < 4 %} {{ creator_pins.count }} {% else %} 4 {% endif %}" data-nav-dots="true" data-lg-items="{% if creator_pins.count < 3 %} {{ creator_pins.count }} {% else %} 3 {% endif %}" data-md-items="{% if creator_pins.count < 2 %} {{ creator_pins.count }} {% else %} 2 {% endif %}"
-                data-sm-items="{% if creator_pins.count < 2 %} {{ creator_pins.count }} {% else %} 2 {% endif %}" data-xs-items="{% if creator_pins.count < 1.5 %} {{ creator_pins.count }} {% else %} 1.5 {% endif %}" data-space="30">
 
+            <div class="row">
             {% for pin in creator_pins %}
-
-                <div class="product-card mb-4">
+                <div class="mb-4 col-sm-6 col-lg-4">
+                <div class="product-card m-1">
                     <div class="product-card-user mb-3">
                         <div class="avatar-group">
                             <div class="avatar avatar-xs">
                                 <a href="{% url 'users:profile' 'a' pin.creator.pk %}" data-bs-toggle="tooltip" data-bs-original-title="{{ pin.creator.username }}">
-                                    <img class="avatar-img rounded-circle" src="{{ pin.creator.avatar.url }}"
+                                    <img class="avatar-img rounded-circle" src="{% if pin.creator.avatar %}{{ pin.creator.avatar.url }} {% else %} {% static 'img.jpg' %} {% endif %}"
                                         title="" alt="">
                                     <div class="avatar-status text-primary border-0">
                                         <i class="bi bi-check-circle-fill"></i>
@@ -198,9 +164,10 @@
                         </div>
                     </div>
                 </div>
+                </div>
             {% endfor %}
-
             </div>
+
         </div>
     </section>
     <!-- End Section -->

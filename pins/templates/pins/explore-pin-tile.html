@@ -1,11 +1,12 @@
 {% load bootstrap_icons %}
+{% load static %}
 <div class="col-sm-6 col-lg-4">
     <div class="product-card">
         <div class="product-card-user mb-3">
             <div class="avatar-group">
                 <div class="avatar avatar-xs">
                     <a href="{% url 'users:profile' 'a' pin.creator.pk %}" data-bs-toggle="tooltip" data-bs-original-title="Martin">
-                        <img class="avatar-img rounded-circle" src="{{ pin.creator.avatar.url }}" title="" alt="">
+                        <img class="avatar-img rounded-circle" src="{% if pin.creator.avatar %}{{ pin.creator.avatar.url }} {% else %} {% static 'img.jpg' %} {% endif %}" title="" alt="">
                         <div class="avatar-status text-primary border-0">
                             {% bs_icon 'check-circle-fill' %}
                         </div>

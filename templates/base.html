@@ -89,10 +89,10 @@
                     <!-- End Menu -->
                     <div class="header-end d-flex justify-content-center justify-content-md-end">
                         <!-- Search -->
-                        <div class="h-col h-search collapse" id="header_search_bar1">
+                        <div class="h-col h-search collapse " id="header_search_bar1">
                             <form class="h-search-form" action="{% url 'pins:explore' %}" method="GET">
                                 <input type="text" name="search" placeholder="Search Here" value="{{ search }}" class="form-control">
-                                <button class="search-btn">{% bs_icon 'search' %}</button>
+                                <button type="submit" class="search-btn">{% bs_icon 'search' %}</button>
                             </form>
                         </div>
                         <div class="h-col h-search-toggle">
@@ -101,48 +101,7 @@
                             </a>
                         </div>
                         <!-- Notification -->
-                        <div class="h-col h-notification dropdown">
-                            <button class="h-notification-icon dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                {% bs_icon 'bell' %}
-                                <sup>10</sup>
-                            </button>
-                            <div class="dropdown-menu">
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <div class="icon icon-md">
-                                            <img title="" alt="" src="{% static 'img.jpg' %}">
-                                        </div>
-                                        <div class="col">
-                                            <h6><a class="stretched-link text-reset" href="#">BoredApeYachtClub</a></h6>
-                                            <span>$4,656,886</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="icon icon-md">
-                                            <img title="" alt="" src="{% static 'img.jpg' %}">
-                                        </div>
-                                        <div class="col">
-                                            <h6><a class="stretched-link text-reset" href="#">BoredApeYachtClub</a></h6>
-                                            <span>$4,656,886</span>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div class="icon icon-md">
-                                            <img title="" alt="" src="{% static 'img.jpg' %}">
-                                        </div>
-                                        <div class="col">
-                                            <h6><a class="stretched-link text-reset" href="#">BoredApeYachtClub</a></h6>
-                                            <span>$4,656,886</span>
-                                        </div>
-                                    </li>
-                                </ul>
-                                <div class="pt-3">
-                                    <a class="btn btn-primary btn-sm w-100" href="#">
-                                        View ALl
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+
                         <!-- Creat-->
                         {% if not request.user.is_authenticated %}
                             <div class="h-col h-create">
