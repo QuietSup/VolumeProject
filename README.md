@@ -5,3 +5,4 @@ I used
 - Google Cloud Storage for media and static files
 - Neon (PostgreSQL)
 - Django - server side
+- deployed on Vercel
