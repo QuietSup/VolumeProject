@@ -6,4 +6,5 @@ I used
 - Neon (PostgreSQL)
 - Django - server side
 - deployed on Vercel
+
 For development I used SQLite, but for production, I migrated to Neon
